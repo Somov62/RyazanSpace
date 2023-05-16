@@ -9,6 +9,6 @@ namespace RyazanSpace.DAL.Entities.Resources.Base
         [Required]
         public string DownloadLink { get; set; }
 
-        public User Owner { get; set; }
+        public virtual User Owner { get; set; }
     }
 }

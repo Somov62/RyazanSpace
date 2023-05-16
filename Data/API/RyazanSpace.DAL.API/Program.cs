@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using RyazanSpace.DAL.API.Data;
 using RyazanSpace.DAL.Repositories.Base;
 using RyazanSpace.Interfaces.Repositories;
+using System.Text.Json.Serialization;
 
 namespace RyazanSpace.DAL.API
 {
@@ -20,7 +21,6 @@ namespace RyazanSpace.DAL.API
 
             var app = builder.Build();
 
-            app.UsePathBase(@"/api/Database");
 
             using (var scope = app.Services.CreateScope())
             {
@@ -53,9 +53,10 @@ namespace RyazanSpace.DAL.API
 
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(p => p.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
             builder.Services.AddDbContext<RyazanSpaceDbContext>(
                 opt => opt
                     .UseSqlServer(builder.Configuration.GetConnectionString("Data"),

@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RyazanSpace.DAL.Entities.Account;
+using RyazanSpace.DAL.Entities.Base;
 using RyazanSpace.Interfaces.Repositories;
 
-namespace RyazanSpace.DAL.API.Controllers
+namespace RyazanSpace.DAL.API.Controllers.Base
 {
-    [Route("api/[controller]")]
+    [Route("api/Database/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public abstract class EntityController<T> : ControllerBase where T : Entity
     {
-        private readonly INamedRepository<User> _repository;
+        protected readonly IRepository<T> _repository;
 
-        public UsersController(INamedRepository<User> repository) => _repository = repository;
+        protected EntityController(IRepository<T> repository) => _repository = repository;
 
         [HttpGet("count")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
@@ -24,11 +24,10 @@ namespace RyazanSpace.DAL.API.Controllers
             await _repository.ExistId(id) ? Ok(true) : NotFound(false);
 
 
-        [HttpGet("exist")]
         [HttpPost("exist")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(bool))]
-        public async Task<IActionResult> Exist(User item) => await _repository.Exist(item) ? Ok(true) : NotFound(false);
+        public async Task<IActionResult> Exist(T item) => await _repository.Exist(item) ? Ok(true) : NotFound(false);
 
 
         [HttpGet]
@@ -38,7 +37,7 @@ namespace RyazanSpace.DAL.API.Controllers
 
         [HttpGet("items[[{skip:int}:{count:int}]]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<User>>> Get(int skip, int count) =>
+        public async Task<ActionResult<IEnumerable<T>>> Get(int skip, int count) =>
             Ok(await _repository.Get(skip, count));
 
         [HttpGet("{id:int}")]
@@ -50,25 +49,24 @@ namespace RyazanSpace.DAL.API.Controllers
         [HttpGet("page[[{pageIndex:int}:{pageSize:int}]]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IPage<User>>> GetPage(int pageIndex, int pageSize)
+        public async Task<ActionResult<IPage<T>>> GetPage(int pageIndex, int pageSize)
         {
             var result = await _repository.GetPage(pageIndex, pageSize);
             return result.Items.Any() ? Ok(result) : NotFound(result);
         }
 
-
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> Add(User item)
+        public async Task<IActionResult> Add(T item)
         {
             var result = await _repository.Add(item);
-            return CreatedAtAction(nameof(GetById), new {id = result.Id}, result);
+            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(User item)
+        public async Task<IActionResult> Update(T item)
         {
             if (await _repository.Update(item) is not { } result)
                 return NotFound(item);
@@ -78,7 +76,7 @@ namespace RyazanSpace.DAL.API.Controllers
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Delete(User item)
+        public async Task<IActionResult> Delete(T item)
         {
             if (await _repository.Delete(item) is not { } result)
                 return NotFound(item);

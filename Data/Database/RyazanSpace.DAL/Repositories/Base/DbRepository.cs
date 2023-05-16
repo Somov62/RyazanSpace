@@ -96,7 +96,8 @@ namespace RyazanSpace.DAL.Repositories.Base
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
 
-            await _db.AddAsync(item).ConfigureAwait(false);
+            _db.Update(item);
+            //await _db.AddAsync(item).ConfigureAwait(false);
             if (AutoSaveChanges)
                 await SaveChanges(cancel).ConfigureAwait(false);
 

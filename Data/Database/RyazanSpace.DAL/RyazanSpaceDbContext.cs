@@ -21,6 +21,7 @@ namespace RyazanSpace.DAL
         {
             base.OnModelCreating(model);
 
+            model.Entity<User>().Navigation(p => p.ProfileImage).AutoInclude();
             model.Entity<User>().HasIndex(nameof(User.Name)).IsUnique();
             model.Entity<User>().HasIndex(nameof(User.Email)).IsUnique();
 
@@ -49,6 +50,17 @@ namespace RyazanSpace.DAL
                 .WithOne(p => p.Owner)
                 .OnDelete(DeleteBehavior.Cascade);
 
+
+            model.Entity<UserToken>().Navigation(p => p.Owner).AutoInclude();
+
+
+            model.Entity<Image>().Navigation(p => p.Owner).AutoInclude();
+
+            model.Entity<Document>().Navigation(p => p.Owner).AutoInclude();
+
+            model.Entity<EmailVerificationSession>().Navigation(p => p.Owner).AutoInclude();
+
+            model.Entity<ResetPasswordSession>().Navigation(p => p.Owner).AutoInclude();
         }
 
     }
