@@ -19,8 +19,15 @@ namespace RyazanSpace.DAL.API
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
             app.UsePathBase(@"/api/Database");
-            // Configure the HTTP request pipeline.
+
+            using (var scope = app.Services.CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<RyazanSpaceDbInitializer>().Initialize();
+            }
+
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger(option =>

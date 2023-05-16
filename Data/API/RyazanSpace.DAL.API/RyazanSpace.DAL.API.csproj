@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Sources\RyazanSpace.DAL.SqlServer\RyazanSpace.DAL.SqlServer.csproj" />
   </ItemGroup>
 
