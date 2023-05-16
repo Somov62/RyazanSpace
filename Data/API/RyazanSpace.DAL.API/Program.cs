@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using RyazanSpace.DAL.API.Data;
+using RyazanSpace.Interfaces.Repositories;
+
 namespace RyazanSpace.DAL.API
 {
     public class Program
@@ -6,10 +10,10 @@ namespace RyazanSpace.DAL.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            ConfigureServices(builder);
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -37,6 +41,28 @@ namespace RyazanSpace.DAL.API
             app.MapControllers();
 
             app.Run();
+        }
+
+        private static void ConfigureServices(WebApplicationBuilder builder)
+        {
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<RyazanSpaceDbContext>(
+                opt => opt
+                    .UseSqlServer(builder.Configuration.GetConnectionString("Data"),
+                    o => o.MigrationsAssembly("RyazanSpace.DAL.SqlServer")));
+
+            builder.Services.AddTransient<RyazanSpaceDbInitializer>();
+
+            AddRepositories(builder);
+
+        }
+
+        private static void AddRepositories(WebApplicationBuilder builder)
+        {
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+            builder.Services.AddScoped(typeof(INamedRepository<>), typeof(DbNamedRepository<>));
         }
     }
 }
