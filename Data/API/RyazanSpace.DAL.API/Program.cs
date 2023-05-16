@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RyazanSpace.DAL.API.Data;
+using RyazanSpace.DAL.Repositories.Base;
 using RyazanSpace.Interfaces.Repositories;
 
 namespace RyazanSpace.DAL.API
