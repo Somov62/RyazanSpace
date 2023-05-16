@@ -62,7 +62,7 @@ namespace RyazanSpace.DAL.API.Controllers
         public async Task<IActionResult> Add(User item)
         {
             var result = await _repository.Add(item);
-            return CreatedAtAction(nameof(GetById), new {id = result.Id});
+            return CreatedAtAction(nameof(GetById), new {id = result.Id}, result);
         }
 
         [HttpPut]
@@ -72,7 +72,7 @@ namespace RyazanSpace.DAL.API.Controllers
         {
             if (await _repository.Update(item) is not { } result)
                 return NotFound(item);
-            return AcceptedAtAction(nameof(GetById), new { id = result.Id });
+            return AcceptedAtAction(nameof(GetById), new { id = result.Id }, result);
         }
 
         [HttpDelete]
@@ -82,6 +82,16 @@ namespace RyazanSpace.DAL.API.Controllers
         {
             if (await _repository.Delete(item) is not { } result)
                 return NotFound(item);
+            return Ok(result);
+        }
+
+        [HttpDelete("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (await _repository.DeleteById(id) is not { } result)
+                return NotFound(id);
             return Ok(result);
         }
     }

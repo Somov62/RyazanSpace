@@ -12,7 +12,7 @@ namespace RyazanSpace.DAL.Repositories.Base
 
         protected virtual IQueryable<T> Items => Set;
 
-        public bool AutoSaveChanges { get; set; }
+        public bool AutoSaveChanges { get; set; } = true;
 
         public DbRepository(RyazanSpaceDbContext db)
         {
