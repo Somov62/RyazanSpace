@@ -17,7 +17,7 @@ namespace RyazanSpace.DAL.WebApiClients.Repositories.Base
 
         public async Task<T> GetByName(string name, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"{name}", cancel).ConfigureAwait(false);
+            var response = await _client.GetAsync($"find/name/{name}", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
             return await response

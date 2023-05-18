@@ -17,10 +17,11 @@ namespace RyazanSpace.DAL.API.Controllers.Base
             await _namedRepository.ExistName(name) ? Ok(true) : NotFound(false);
 
 
-        [HttpGet("{name}")]
+        [HttpGet("find/name/{name}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetByName(string name) => await _namedRepository.GetByName(name) is { } item ? Ok(item) : NotFound();
+        public async Task<IActionResult> GetByName(string name) => 
+            await _namedRepository.GetByName(name) is { } item ? Ok(item) : NotFound();
 
         [HttpDelete("{name}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -17,5 +17,12 @@ namespace RyazanSpace.DAL.API.Controllers.Account
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(bool))]
         public async Task<IActionResult> ExistEmail(string email) =>
             await _actualRepository.ExistEmail(email) ? Ok(true) : NotFound(false);
+
+
+        [HttpGet("find/email/{email}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetByEmail(string email) => 
+            await _actualRepository.GetByEmail(email) is { } item ? Ok(item) : NotFound();
     }
 }

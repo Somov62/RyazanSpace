@@ -12,5 +12,10 @@ namespace RyazanSpace.DAL.Repositories.Account
         {
             return await Items.AnyAsync(item => item.Email == email, cancel).ConfigureAwait(false);
         }
+
+        public async Task<User> GetByEmail(string email, CancellationToken cancel = default)
+        {
+            return await Items.FirstOrDefaultAsync(item => item.Email == email, cancel).ConfigureAwait(false);
+        }
     }
 }
