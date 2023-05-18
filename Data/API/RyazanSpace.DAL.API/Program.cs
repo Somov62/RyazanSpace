@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RyazanSpace.DAL.API.Data;
+using RyazanSpace.DAL.Repositories.Account;
 using RyazanSpace.DAL.Repositories.Base;
 using RyazanSpace.Interfaces.Repositories;
 using System.Text.Json.Serialization;
@@ -32,16 +33,16 @@ namespace RyazanSpace.DAL.API
             {
                 app.UseSwagger(option =>
                 {
-                    option.RouteTemplate = "Database/{documentName}/swagger.json";
+                    option.RouteTemplate = "api/Database/{documentName}/swagger.json";
                 });
                 app.UseSwaggerUI(option =>
                 {
-                    option.SwaggerEndpoint("/Database/v1/swagger.json", "Database API");
-                    option.RoutePrefix = "Database";
+                    option.SwaggerEndpoint("/api/Database/v1/swagger.json", "Database API");
+                    option.RoutePrefix = "api/Database";
                 });
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
@@ -72,6 +73,7 @@ namespace RyazanSpace.DAL.API
         {
             builder.Services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             builder.Services.AddScoped(typeof(INamedRepository<>), typeof(DbNamedRepository<>));
+            builder.Services.AddScoped(typeof(DbUserRepository));
         }
     }
 }

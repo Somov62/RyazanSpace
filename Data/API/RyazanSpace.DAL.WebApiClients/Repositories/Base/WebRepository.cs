@@ -3,7 +3,7 @@ using RyazanSpace.Interfaces.Repositories;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace RyazanSpace.DAL.WebApiClients.Repositories
+namespace RyazanSpace.DAL.WebApiClients.Repositories.Base
 {
     public class WebRepository<T> : IRepository<T> where T : IEntity
     {
@@ -24,15 +24,15 @@ namespace RyazanSpace.DAL.WebApiClients.Repositories
             return response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound;
         }
 
-        public async Task<int> GetCount(CancellationToken cancel = default) => 
+        public async Task<int> GetCount(CancellationToken cancel = default) =>
             await _client.GetFromJsonAsync<int>("count", cancel).ConfigureAwait(false);
 
         public async Task<IEnumerable<T>> Get(int skip, int count, CancellationToken cancel = default) =>
             await _client.GetFromJsonAsync<IEnumerable<T>>($"items[{skip}:{count}]", cancel).ConfigureAwait(false);
-        
+
         public async Task<IEnumerable<T>> GetAll(CancellationToken cancel = default) =>
             await _client.GetFromJsonAsync<IEnumerable<T>>("", cancel).ConfigureAwait(false);
-       
+
 
         public async Task<T> GetById(int id, CancellationToken cancel = default)
         {
@@ -63,7 +63,7 @@ namespace RyazanSpace.DAL.WebApiClients.Repositories
             return await response
                 .EnsureSuccessStatusCode()
                 .Content
-                .ReadFromJsonAsync<PageItems>(cancellationToken : cancel)
+                .ReadFromJsonAsync<PageItems>(cancellationToken: cancel)
                 .ConfigureAwait(false);
         }
 
