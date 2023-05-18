@@ -14,6 +14,7 @@ namespace RyazanSpace.Domain.Auth.DTO
         [Required]
         public string Name { get; set; }
         [Required]
+        [RegularExpression("^[0-9a-fA-F]{32}$", ErrorMessage = "Пароль должен быть в формате MD5")]
         public string Password { get; set; }
 
         public override User MapToEntity() => new()

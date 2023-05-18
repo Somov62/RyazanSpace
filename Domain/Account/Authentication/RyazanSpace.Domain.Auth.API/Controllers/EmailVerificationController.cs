@@ -6,11 +6,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RyazanSpace.Domain.Auth.API.Controllers
 {
-    public class EmailVerificationControlller : Base.BaseAuthenticationController
+    public class EmailVerificationController : Base.BaseAuthenticationController
     {
         private readonly EmailVerificationService _service;
 
-        public EmailVerificationControlller(EmailVerificationService service) => _service = service;
+        public EmailVerificationController(EmailVerificationService service) => _service = service;
 
         [HttpGet("check")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(bool))]
@@ -39,6 +39,10 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
             catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
             }
         }
 

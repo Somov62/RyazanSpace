@@ -44,7 +44,9 @@ namespace RyazanSpace.Domain.Auth.Services
         public async Task<int> CreateSession(int userId)
         {
             var user = await this.GetUserById(userId).ConfigureAwait(false);
-
+            if (user.IsEmailVerified)
+                throw new Exception("Почта уже подтверждена!");
+            
             Random rnd = new();
             EmailVerificationSession session = new()
             { 

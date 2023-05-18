@@ -48,8 +48,6 @@ namespace RyazanSpace.Domain.Auth.Services
 
             if (!ValidateEmail())
                 sb.AppendLine("Неверный формат электронной почты");
-            if (!ValidateMD5())
-                sb.AppendLine("Пароль должен быть в формате MD5");
 
             errors = sb.ToString();
             return errors.Length == 0;
@@ -62,8 +60,6 @@ namespace RyazanSpace.Domain.Auth.Services
                           + @"((([01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]).){3}[01]?[0-9]{1,2}|2[0-4][0-9]|25[0-5]))\z";
                 return Regex.IsMatch(model.Email, pattern);
             }
-
-            bool ValidateMD5() => Regex.IsMatch(model.Password, "^[0-9a-fA-F]{32}$", RegexOptions.Compiled);
         }
     }
 }

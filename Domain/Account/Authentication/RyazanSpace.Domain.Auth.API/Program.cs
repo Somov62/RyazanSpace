@@ -44,14 +44,18 @@ namespace RyazanSpace.Domain.Auth.API
                 ( configureClient :
                 client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/Users/"); });
 
-
             builder.Services.AddHttpClient<IRepository<EmailVerificationSession>, WebRepository<EmailVerificationSession>> 
                 ( configureClient:
                 client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/EmailVerificationSessions/"); });
 
+            builder.Services.AddHttpClient<IRepository<ResetPasswordSession>, WebRepository<ResetPasswordSession>>
+               (configureClient:
+               client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/ResetPasswordSessions/"); });
+
 
             builder.Services.AddScoped(typeof(RegistrationService));
             builder.Services.AddScoped(typeof(EmailVerificationService));
+            builder.Services.AddScoped(typeof(ResetPasswordService));
         }
     }
 }

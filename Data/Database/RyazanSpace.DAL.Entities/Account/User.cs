@@ -12,6 +12,7 @@ namespace RyazanSpace.DAL.Entities.Account
         public string Email { get; set; }
 
         [MaxLength(50)]
+        [RegularExpression("^[0-9a-fA-F]{32}$", ErrorMessage = "Пароль должен быть в формате MD5")]
         public string Password { get; set; }
 
         public bool IsEmailVerified { get; set; }
