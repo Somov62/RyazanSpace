@@ -11,13 +11,13 @@ namespace RyazanSpace.DAL.Client.Repositories.Account
 
         public async Task<bool> ExistEmail(string email, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"exist/email/{email}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"exist/email/{email}", cancel).ConfigureAwait(false);
             return response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound;
         }
 
         public async Task<User> GetByEmail(string email, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"find/email/{email}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"find/email/{email}", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
             return await response

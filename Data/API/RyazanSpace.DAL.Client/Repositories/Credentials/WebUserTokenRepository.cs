@@ -12,13 +12,13 @@ namespace RyazanSpace.DAL.Client.Repositories.Credentials
 
         public async Task<bool> ExistToken(string token, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"exist/token/{token}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"exist/token/{token}", cancel).ConfigureAwait(false);
             return response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound;
         }
 
         public async Task<UserToken> GetByToken(string token, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"find/token/{token}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"find/token/{token}", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
             return await response
@@ -30,7 +30,7 @@ namespace RyazanSpace.DAL.Client.Repositories.Credentials
 
         public async Task<UserToken> DeleteByToken(string token, CancellationToken cancel = default)
         {
-            var response = await _client.DeleteAsync($"{token}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.DeleteAsync($"{token}", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
 

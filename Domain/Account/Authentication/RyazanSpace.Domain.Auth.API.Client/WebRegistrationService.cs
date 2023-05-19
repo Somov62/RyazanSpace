@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RyazanSpace.Core.API;
 
 namespace RyazanSpace.Domain.Auth.API.Client
 {
-    public class WebRegistrationService
+    public class WebRegistrationService : WebService
     {
-
+        public WebRegistrationService(HttpClient client) : base(client) { }
     }
 }

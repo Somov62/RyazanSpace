@@ -6,4 +6,8 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\RyazanSpace.Core\RyazanSpace.Core.csproj" />
+  </ItemGroup>
+
 </Project>

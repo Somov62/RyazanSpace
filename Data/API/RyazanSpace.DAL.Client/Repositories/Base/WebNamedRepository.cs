@@ -11,13 +11,13 @@ namespace RyazanSpace.DAL.Client.Repositories.Base
 
         public async Task<bool> ExistName(string name, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"exist/name/{name}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"exist/name/{name}", cancel).ConfigureAwait(false);
             return response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound;
         }
 
         public async Task<T> GetByName(string name, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"find/name/{name}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"find/name/{name}", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
             return await response
@@ -29,7 +29,7 @@ namespace RyazanSpace.DAL.Client.Repositories.Base
 
         public async Task<T> DeleteByName(string name, CancellationToken cancel = default)
         {
-            var response = await _client.DeleteAsync($"{name}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.DeleteAsync($"{name}", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
 

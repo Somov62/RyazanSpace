@@ -1,42 +1,41 @@
-﻿using RyazanSpace.Interfaces.Entities;
+﻿using RyazanSpace.Core.API;
+using RyazanSpace.Interfaces.Entities;
 using RyazanSpace.Interfaces.Repositories;
 using System.Net;
 using System.Net.Http.Json;
 
 namespace RyazanSpace.DAL.Client.Repositories.Base
 {
-    public class WebRepository<T> : IRepository<T> where T : IEntity
+    public class WebRepository<T> : WebService, IRepository<T> where T : IEntity
     {
 
-        protected readonly HttpClient _client;
-
-        public WebRepository(HttpClient client) => _client = client;
+        public WebRepository(HttpClient client) : base(client) { }
 
         public async Task<bool> Exist(T item, CancellationToken cancel = default)
         {
-            var response = await _client.PostAsJsonAsync("exist", item, cancel).ConfigureAwait(false);
+            var response = await HttpClient.PostAsJsonAsync("exist", item, cancel).ConfigureAwait(false);
             return response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound;
         }
 
         public async Task<bool> ExistId(int id, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"exist/id/{id}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"exist/id/{id}", cancel).ConfigureAwait(false);
             return response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound;
         }
 
         public async Task<int> GetCount(CancellationToken cancel = default) =>
-            await _client.GetFromJsonAsync<int>("count", cancel).ConfigureAwait(false);
+            await HttpClient.GetFromJsonAsync<int>("count", cancel).ConfigureAwait(false);
 
         public async Task<IEnumerable<T>> Get(int skip, int count, CancellationToken cancel = default) =>
-            await _client.GetFromJsonAsync<IEnumerable<T>>($"items[{skip}:{count}]", cancel).ConfigureAwait(false);
+            await HttpClient.GetFromJsonAsync<IEnumerable<T>>($"items[{skip}:{count}]", cancel).ConfigureAwait(false);
 
         public async Task<IEnumerable<T>> GetAll(CancellationToken cancel = default) =>
-            await _client.GetFromJsonAsync<IEnumerable<T>>("", cancel).ConfigureAwait(false);
+            await HttpClient.GetFromJsonAsync<IEnumerable<T>>("", cancel).ConfigureAwait(false);
 
 
         public async Task<T> GetById(int id, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"{id}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"{id}", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
             return await response
@@ -49,7 +48,7 @@ namespace RyazanSpace.DAL.Client.Repositories.Base
 
         public async Task<IPage<T>> GetPage(int pageIndex, int pageSize, CancellationToken cancel = default)
         {
-            var response = await _client.GetAsync($"page[{pageIndex}:{pageSize}]", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"page[{pageIndex}:{pageSize}]", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return new PageItems()
@@ -79,7 +78,7 @@ namespace RyazanSpace.DAL.Client.Repositories.Base
 
         public async Task<T> Add(T item, CancellationToken cancel = default)
         {
-            var response = await _client.PostAsJsonAsync("", item, cancel).ConfigureAwait(false);
+            var response = await HttpClient.PostAsJsonAsync("", item, cancel).ConfigureAwait(false);
             return await response
               .EnsureSuccessStatusCode()
               .Content
@@ -89,7 +88,7 @@ namespace RyazanSpace.DAL.Client.Repositories.Base
 
         public async Task<T> Update(T item, CancellationToken cancel = default)
         {
-            var response = await _client.PutAsJsonAsync("", item, cancel).ConfigureAwait(false);
+            var response = await HttpClient.PutAsJsonAsync("", item, cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return await response
                   .Content
@@ -110,7 +109,7 @@ namespace RyazanSpace.DAL.Client.Repositories.Base
                 Content = JsonContent.Create(item)
             };
 
-            var response = await _client.SendAsync(request, cancel).ConfigureAwait(false);
+            var response = await HttpClient.SendAsync(request, cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
 
@@ -123,7 +122,7 @@ namespace RyazanSpace.DAL.Client.Repositories.Base
 
         public async Task<T> DeleteById(int id, CancellationToken cancel = default)
         {
-            var response = await _client.DeleteAsync($"{id}", cancel).ConfigureAwait(false);
+            var response = await HttpClient.DeleteAsync($"{id}", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 return default;
 
