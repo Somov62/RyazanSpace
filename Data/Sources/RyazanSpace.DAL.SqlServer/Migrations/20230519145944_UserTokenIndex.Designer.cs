@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RyazanSpace.DAL;
 
@@ -11,9 +12,11 @@ using RyazanSpace.DAL;
 namespace RyazanSpace.DAL.SqlServer.Migrations
 {
     [DbContext(typeof(RyazanSpaceDbContext))]
-    partial class RyazanSpaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230519145944_UserTokenIndex")]
+    partial class UserTokenIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

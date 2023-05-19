@@ -52,6 +52,7 @@ namespace RyazanSpace.DAL
 
 
             model.Entity<UserToken>().Navigation(p => p.Owner).AutoInclude();
+            model.Entity<UserToken>().HasIndex(nameof(UserToken.Token)).IsUnique();
 
 
             model.Entity<Image>().Navigation(p => p.Owner).AutoInclude();
