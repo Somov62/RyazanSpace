@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Data\API\RyazanSpace.DAL.WebApiClients\RyazanSpace.DAL.WebApiClients.csproj" />
+    <ProjectReference Include="..\..\..\..\Data\API\RyazanSpace.DAL.Client\RyazanSpace.DAL.Client.csproj" />
     <ProjectReference Include="..\..\..\..\Data\Database\RyazanSpace.DAL.Entities\RyazanSpace.DAL.Entities.csproj" />
     <ProjectReference Include="..\..\..\..\Services\MailService\RyazanSpace.MailService\RyazanSpace.MailService.csproj" />
     <ProjectReference Include="..\RyazanSpace.Domain.Auth.DTO\RyazanSpace.Domain.Auth.DTO.csproj" />

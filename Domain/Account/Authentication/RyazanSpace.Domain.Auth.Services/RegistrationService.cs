@@ -1,4 +1,4 @@
-﻿using RyazanSpace.DAL.WebApiClients.Repositories.Account;
+﻿using RyazanSpace.DAL.Client.Repositories.Account;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
 using System.ComponentModel.DataAnnotations;

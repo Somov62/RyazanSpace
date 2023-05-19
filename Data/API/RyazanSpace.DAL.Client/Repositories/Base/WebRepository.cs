@@ -3,7 +3,7 @@ using RyazanSpace.Interfaces.Repositories;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace RyazanSpace.DAL.WebApiClients.Repositories.Base
+namespace RyazanSpace.DAL.Client.Repositories.Base
 {
     public class WebRepository<T> : IRepository<T> where T : IEntity
     {

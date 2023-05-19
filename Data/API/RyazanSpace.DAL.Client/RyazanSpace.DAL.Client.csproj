@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Interfaces\RyazanSpace.Interfaces\RyazanSpace.Interfaces.csproj" />
+    <ProjectReference Include="..\..\..\Core\RyazanSpace.Interfaces\RyazanSpace.Interfaces.csproj" />
     <ProjectReference Include="..\..\Database\RyazanSpace.DAL.Entities\RyazanSpace.DAL.Entities.csproj" />
   </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{8B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{9E5C79DE-6CF9-4AE3-9B31-42DC288F4FC6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interfaces", "Interfaces", "{9D5B823E-81A0-4EF7-9509-3F8B3A9A58CB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{9D5B823E-81A0-4EF7-9509-3F8B3A9A58CB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.DAL", "Data\Database\RyazanSpace.DAL\RyazanSpace.DAL.csproj", "{2F91F8FA-FA21-4FB2-9304-A1DC02D0F128}"
 EndProject
@@ -17,13 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.DAL.Entities", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.DAL.SqlServer", "Data\Sources\RyazanSpace.DAL.SqlServer\RyazanSpace.DAL.SqlServer.csproj", "{5EAA8CA8-C53C-4957-95FE-1641156B13F9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Interfaces", "Interfaces\RyazanSpace.Interfaces\RyazanSpace.Interfaces.csproj", "{9EF325DE-80D8-4C18-AACC-C947AF8A0AD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Interfaces", "Core\RyazanSpace.Interfaces\RyazanSpace.Interfaces.csproj", "{9EF325DE-80D8-4C18-AACC-C947AF8A0AD9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{654F40AC-135A-45DD-8097-04D5389CD581}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.DAL.API", "Data\API\RyazanSpace.DAL.API\RyazanSpace.DAL.API.csproj", "{8F475499-07AC-4C60-82BD-66535E5A5128}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.DAL.WebApiClients", "Data\API\RyazanSpace.DAL.WebApiClients\RyazanSpace.DAL.WebApiClients.csproj", "{04359984-AA05-43A1-BC4E-03A988F49C9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.DAL.Client", "Data\API\RyazanSpace.DAL.Client\RyazanSpace.DAL.Client.csproj", "{04359984-AA05-43A1-BC4E-03A988F49C9F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{D2DB8F06-F29C-43A3-AC10-803635A6BB6C}"
 EndProject
@@ -43,9 +43,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Domain.Auth.API
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A7500981-D3B0-4F0E-976A-CBF8CCB23C34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RyazanSpace.Domain.Auth.Mails", "Domain\Account\Authentication\RyazanSpace.Domain.Auth.Mails\RyazanSpace.Domain.Auth.Mails.csproj", "{4BF293ED-ED0C-412E-90A9-80DF70A68360}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Domain.Auth.Mails", "Domain\Account\Authentication\RyazanSpace.Domain.Auth.Mails\RyazanSpace.Domain.Auth.Mails.csproj", "{4BF293ED-ED0C-412E-90A9-80DF70A68360}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RyazanSpace.MailService", "Services\MailService\RyazanSpace.MailService\RyazanSpace.MailService.csproj", "{03C78E1C-8DF1-4432-9A1D-5452E50858E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.MailService", "Services\MailService\RyazanSpace.MailService\RyazanSpace.MailService.csproj", "{03C78E1C-8DF1-4432-9A1D-5452E50858E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

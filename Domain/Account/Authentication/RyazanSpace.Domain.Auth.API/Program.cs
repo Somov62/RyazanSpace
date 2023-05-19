@@ -1,7 +1,7 @@
 using RyazanSpace.DAL.Entities.Credentials;
-using RyazanSpace.DAL.WebApiClients.Repositories.Account;
-using RyazanSpace.DAL.WebApiClients.Repositories.Base;
-using RyazanSpace.DAL.WebApiClients.Repositories.Credentials;
+using RyazanSpace.DAL.Client.Repositories.Account;
+using RyazanSpace.DAL.Client.Repositories.Base;
+using RyazanSpace.DAL.Client.Repositories.Credentials;
 using RyazanSpace.Domain.Auth.Services;
 using RyazanSpace.Interfaces.Repositories;
 using RyazanSpace.MailService;

@@ -1,9 +1,9 @@
 ﻿using RyazanSpace.DAL.Entities.Account;
-using RyazanSpace.DAL.WebApiClients.Repositories.Base;
+using RyazanSpace.DAL.Client.Repositories.Base;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace RyazanSpace.DAL.WebApiClients.Repositories.Account
+namespace RyazanSpace.DAL.Client.Repositories.Account
 {
     public class WebUserRepository : WebNamedRepository<User>
     {

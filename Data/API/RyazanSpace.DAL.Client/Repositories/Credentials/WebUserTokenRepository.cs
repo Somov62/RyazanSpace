@@ -1,9 +1,9 @@
 ﻿using RyazanSpace.DAL.Entities.Credentials;
-using RyazanSpace.DAL.WebApiClients.Repositories.Base;
+using RyazanSpace.DAL.Client.Repositories.Base;
 using System.Net;
 using System.Net.Http.Json;
 
-namespace RyazanSpace.DAL.WebApiClients.Repositories.Credentials
+namespace RyazanSpace.DAL.Client.Repositories.Credentials
 {
     public class WebUserTokenRepository : WebRepository<UserToken>
     {
