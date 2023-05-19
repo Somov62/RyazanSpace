@@ -67,7 +67,7 @@ namespace RyazanSpace.Domain.Auth.Services
         /// <exception cref="TimeOutSessionException"/>
         /// <exception cref="ArgumentException"/>
         /// <returns>true - в случае успеха</returns>
-        public async Task<bool> ConfirmSession(ConfirmResetPasswordDTO model, string cancelEndPoint)
+        public async Task<bool> ConfirmSession(ConfirmResetPasswordDTO model)
         {
             if (model.SessionId < 1)
                 throw new NotFoundException("Сессия сброса пароля не найдена!");
@@ -86,10 +86,7 @@ namespace RyazanSpace.Domain.Auth.Services
             user.Password = model.NewPassword;
             await _userRepository.Update(user).ConfigureAwait(false);
             await _mailService.SendEmailAsync(
-                new SuccessResetPasswordMessage(
-                    user.Email, 
-                    user.Name, 
-                    cancelEndPoint.Replace("ID", session.Id.ToString())));
+                new SuccessResetPasswordMessage(user.Email, user.Name));
             return true;
         }
 

@@ -49,7 +49,7 @@ namespace RyazanSpace.Domain.Auth.API
 
             builder.Services.AddHttpClient<WebUserTokenRepository>
                (configureClient:
-               client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/UserTokens/"); });
+               client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/UserToken/"); });
 
             builder.Services.AddHttpClient<IRepository<EmailVerificationSession>, WebRepository<EmailVerificationSession>> 
                 ( configureClient:
@@ -62,6 +62,7 @@ namespace RyazanSpace.Domain.Auth.API
             builder.Services.AddScoped<RegistrationService>();
             builder.Services.AddScoped<EmailVerificationService>();
             builder.Services.AddScoped<ResetPasswordService>();
+            builder.Services.AddScoped<AuthService>();
             builder.Services.AddScoped(c => new EmailSender(
                 new NetworkCredential(
                     builder.Configuration["EmailSenderUserName"], 

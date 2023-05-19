@@ -36,7 +36,8 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
         {
             try
             {
-                return Ok(await _service.CreateSession(model, HttpContext.Request.Path + "ID" + "/break"));
+                return Ok(await _service.CreateSession(model, 
+                    $"{Request.Scheme}://{Request.Host}{Request.PathBase}{HttpContext.Request.Path.Value + "/ID/break"}"));
             }
             catch (NotFoundException ex)
             {
@@ -54,7 +55,7 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
         {
             try
             {
-                return Ok(await _service.ConfirmSession(model, HttpContext.Request.Path + "ID" + "/break"));
+                return Ok(await _service.ConfirmSession(model));
             }
             catch (NotFoundException ex)
             {

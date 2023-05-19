@@ -37,7 +37,7 @@ namespace RyazanSpace.DAL.WebApiClients.Repositories.Credentials
             return await response
               .EnsureSuccessStatusCode()
               .Content
-              .ReadFromJsonAsync<T>(cancellationToken: cancel)
+              .ReadFromJsonAsync<UserToken>(cancellationToken: cancel)
               .ConfigureAwait(false);
         }
     }

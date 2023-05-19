@@ -8,10 +8,26 @@
 
   <ItemGroup>
     <None Remove="Views\EmailVerificationMessage.html" />
+    <None Remove="Views\LoginMessage.html" />
+    <None Remove="Views\ResetPasswordMessage.html" />
+    <None Remove="Views\SuccessEmailVerificationMessage.html" />
+    <None Remove="Views\SuccessResetPasswordMessage.html" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Views\EmailVerificationMessage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\LoginMessage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\ResetPasswordMessage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\SuccessEmailVerificationMessage.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\SuccessResetPasswordMessage.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

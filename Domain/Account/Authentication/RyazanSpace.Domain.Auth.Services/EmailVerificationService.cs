@@ -59,7 +59,7 @@ namespace RyazanSpace.Domain.Auth.Services
                 Owner = user,
                 VerificationCode = rnd.Next(10000, 100000)
             };
-           // session = await _emailRepository.Add(session);
+            session = await _emailRepository.Add(session);
             await _mailService.SendEmailAsync(
                 new EmailVerificationMessage(user.Email, session.VerificationCode)).ConfigureAwait(false);
             return session.Id;

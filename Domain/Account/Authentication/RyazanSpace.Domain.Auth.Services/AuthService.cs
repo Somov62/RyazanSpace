@@ -4,8 +4,8 @@ using RyazanSpace.DAL.WebApiClients.Repositories.Account;
 using RyazanSpace.DAL.WebApiClients.Repositories.Credentials;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
+using RyazanSpace.Domain.Auth.Mails;
 using RyazanSpace.MailService;
-using System.Threading.Channels;
 
 namespace RyazanSpace.Domain.Auth.Services
 {
@@ -25,8 +25,22 @@ namespace RyazanSpace.Domain.Auth.Services
             _mailService = mailService;
         }
 
-
-        public async Task<TokenResponseDTO> Login(AuthRequestDTO model, CancellationToken cancel = default)
+        /// <summary>
+        ///  /// <para>Метод для входа в аккаунт.</para>
+        /// Создает токен доступа
+        /// </summary>
+        /// <param name="model">Конфиденциальные данные</param>
+        /// <param name="breakAddress">эндпоинт отмены входа</param>
+        /// <param name="senderIpAddress">ip отправителя</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public async Task<TokenResponseDTO> Login(
+            AuthRequestDTO model, 
+            string breakAddress,
+            string senderIpAddress,
+            CancellationToken cancel = default)
         {
             var user = await _userRepository.GetByEmail(model.Login, cancel).ConfigureAwait(false);
             user ??= await _userRepository.GetByName(model.Login, cancel).ConfigureAwait(false);
@@ -37,11 +51,28 @@ namespace RyazanSpace.Domain.Auth.Services
             if (user.Password != model.Password)
                 throw new ArgumentException("Пароль неверен!");
 
+            if (!user.IsEmailVerified)
+                throw new UserNotVerifiedException("Ваша электронная почта не подтверждена!");
+
             UserToken sessionToken = CreateToken(user);
-            await _tokenRepository.Add(sessionToken, cancel).ConfigureAwait(false);
+            sessionToken = await _tokenRepository.Add(sessionToken, cancel).ConfigureAwait(false);
+            await _mailService.SendEmailAsync(
+                new LoginMessage(
+                    user.Email, 
+                    breakAddress.Replace("ID", sessionToken.Id.ToString()), 
+                    senderIpAddress), 
+                cancel).ConfigureAwait(false);
             return new TokenResponseDTO(sessionToken.Token, sessionToken.DateExpire);
         }
 
+        /// <summary>
+        /// Метод для продления токена доступа
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
+        /// <exception cref="TimeOutSessionException"></exception>
         public async Task<TokenResponseDTO> RefreshToken(string token, CancellationToken cancel = default)
         {
             var sessionToken = await _tokenRepository.GetByToken(token, cancel).ConfigureAwait(false);
@@ -56,6 +87,14 @@ namespace RyazanSpace.Domain.Auth.Services
             return new TokenResponseDTO(sessionToken.Token, sessionToken.DateExpire);
         }
 
+        /// <summary>
+        /// <para>Метод для выхода из аккаунта.</para>
+        /// Токен доступа удаляется и больше недействителен.
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         public async Task Logout(string token, CancellationToken cancel = default)
         {
             var sessionToken = await _tokenRepository.GetByToken(token, cancel).ConfigureAwait(false);
@@ -65,6 +104,14 @@ namespace RyazanSpace.Domain.Auth.Services
             await _tokenRepository.Delete(sessionToken, cancel).ConfigureAwait(false);
         }
 
+
+        /// <summary>
+        /// <para>Метод принудительного удаления токена</para>
+        /// </summary>
+        /// <param name="tokenId">ID токена в базе данных</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotFoundException"></exception>
         public async Task BreakToken(int tokenId, CancellationToken cancel = default)
         {
             var sessionToken = await _tokenRepository.GetById(tokenId, cancel).ConfigureAwait(false);
