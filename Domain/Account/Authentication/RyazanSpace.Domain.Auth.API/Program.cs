@@ -1,6 +1,7 @@
 using RyazanSpace.DAL.Entities.Credentials;
 using RyazanSpace.DAL.WebApiClients.Repositories.Account;
 using RyazanSpace.DAL.WebApiClients.Repositories.Base;
+using RyazanSpace.DAL.WebApiClients.Repositories.Credentials;
 using RyazanSpace.Domain.Auth.Services;
 using RyazanSpace.Interfaces.Repositories;
 using RyazanSpace.MailService;
@@ -46,6 +47,10 @@ namespace RyazanSpace.Domain.Auth.API
                 ( configureClient :
                 client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/Users/"); });
 
+            builder.Services.AddHttpClient<WebUserTokenRepository>
+               (configureClient:
+               client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/UserTokens/"); });
+
             builder.Services.AddHttpClient<IRepository<EmailVerificationSession>, WebRepository<EmailVerificationSession>> 
                 ( configureClient:
                 client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/EmailVerificationSessions/"); });
@@ -53,7 +58,6 @@ namespace RyazanSpace.Domain.Auth.API
             builder.Services.AddHttpClient<IRepository<ResetPasswordSession>, WebRepository<ResetPasswordSession>>
                (configureClient:
                client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/ResetPasswordSessions/"); });
-
 
             builder.Services.AddScoped<RegistrationService>();
             builder.Services.AddScoped<EmailVerificationService>();
