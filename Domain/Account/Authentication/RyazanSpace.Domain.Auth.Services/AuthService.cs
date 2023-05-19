@@ -6,6 +6,7 @@ using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
 using RyazanSpace.Domain.Auth.Mails;
 using RyazanSpace.MailService;
+using RyazanSpace.Core.Exceptions;
 
 namespace RyazanSpace.Domain.Auth.Services
 {
@@ -35,7 +36,7 @@ namespace RyazanSpace.Domain.Auth.Services
         /// <param name="cancel"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="UserNotVerifiedException"></exception>
         public async Task<TokenResponseDTO> Login(
             AuthRequestDTO model, 
             string breakAddress,

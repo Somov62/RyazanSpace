@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RyazanSpace.Core.Exceptions;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
 using RyazanSpace.Domain.Auth.Services;
@@ -21,10 +22,7 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
             {
                 return Ok(await _service.CheckEmailVerified(userId));
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
         }
 
         [HttpPost()]
@@ -36,14 +34,8 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
             {
                 return Ok(await _service.CreateSession(userId));
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex) 
-            {
-                return BadRequest(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (Exception ex) { return BadRequest(ex.Message); }
         }
 
         [HttpPost("confirm")]
@@ -56,18 +48,10 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
             {
                 return Ok(await _service.ConfirmSession(model));
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (TimeOutSessionException ex)
-            {
-                return StatusCode(StatusCodes.Status408RequestTimeout, ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ArgumentException ex) { return BadRequest(ex.Message); }
+            catch (TimeOutSessionException ex) 
+            { return StatusCode(StatusCodes.Status408RequestTimeout, ex.Message); }
         }
     }
 }

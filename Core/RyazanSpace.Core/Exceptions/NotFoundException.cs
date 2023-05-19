@@ -1,4 +1,4 @@
-﻿namespace RyazanSpace.Domain.Auth.Exceptions
+﻿namespace RyazanSpace.Core.Exceptions
 {
     public class NotFoundException : ArgumentException
     {

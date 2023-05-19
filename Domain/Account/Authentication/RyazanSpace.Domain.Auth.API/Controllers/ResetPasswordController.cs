@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RyazanSpace.Core.Exceptions;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
 using RyazanSpace.Domain.Auth.Services;
@@ -21,10 +22,7 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
                 await _service.BreakSession(sessionId);
                 return Ok();
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
         }
 
         [HttpPost()]
@@ -39,10 +37,7 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
                 return Ok(await _service.CreateSession(model, 
                     $"{Request.Scheme}://{Request.Host}{Request.PathBase}{HttpContext.Request.Path.Value + "/ID/break"}"));
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
         }
 
         [HttpPost("confirm")]
@@ -57,18 +52,10 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
             {
                 return Ok(await _service.ConfirmSession(model));
             }
-            catch (NotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (TimeOutSessionException ex)
-            {
-                return StatusCode(StatusCodes.Status408RequestTimeout, ex.Message);
-            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+            catch (ArgumentException ex) { return BadRequest(ex.Message); }
+            catch (TimeOutSessionException ex) 
+            { return StatusCode(StatusCodes.Status408RequestTimeout, ex.Message); }
         }
     }
 }

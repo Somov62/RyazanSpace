@@ -22,10 +22,7 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
                 var user = await _service.Register(model);
                 return Ok(user);
             }
-            catch (UserAlreadyExistsException ex)
-            {
-                return Conflict(ex.Message);
-            }
+            catch (UserAlreadyExistsException ex) { return Conflict(ex.Message); }
         }
     }
 }

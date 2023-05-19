@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\RyazanSpace.Core\RyazanSpace.Core.csproj" />
+    <ProjectReference Include="..\RyazanSpace.Domain.Auth.DTO\RyazanSpace.Domain.Auth.DTO.csproj" />
+    <ProjectReference Include="..\RyazanSpace.Domain.Auth.Exceptions\RyazanSpace.Domain.Auth.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

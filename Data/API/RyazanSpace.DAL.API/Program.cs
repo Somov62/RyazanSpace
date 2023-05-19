@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RyazanSpace.DAL.API.Data;
 using RyazanSpace.DAL.Repositories.Account;
 using RyazanSpace.DAL.Repositories.Base;
 using RyazanSpace.DAL.Repositories.Credentials;
 using RyazanSpace.Interfaces.Repositories;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace RyazanSpace.DAL.API
@@ -15,11 +17,6 @@ namespace RyazanSpace.DAL.API
             var builder = WebApplication.CreateBuilder(args);
 
             ConfigureServices(builder);
-
-            builder.Services.AddControllers();
-            
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -58,6 +55,25 @@ namespace RyazanSpace.DAL.API
             builder.Services.AddControllers().AddJsonOptions(p => p.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.Configure<ApiBehaviorOptions>(o =>
+            {
+                o.InvalidModelStateResponseFactory = actionContext =>
+                {
+                    StringBuilder message = new();
+
+                    foreach (var value in actionContext.ModelState.Values)
+                    {
+                        foreach (var error in value.Errors)
+                        {
+                            if (string.IsNullOrEmpty(error.ErrorMessage)) continue;
+                            message.AppendLine(error.ErrorMessage);
+                        }
+                    }
+                    return new BadRequestObjectResult(message.ToString());
+                };
+            });
+
 
             builder.Services.AddDbContext<RyazanSpaceDbContext>(
                 opt => opt

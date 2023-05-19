@@ -5,6 +5,7 @@ using RyazanSpace.Domain.Auth.Exceptions;
 using RyazanSpace.Domain.Auth.Mails;
 using RyazanSpace.Interfaces.Repositories;
 using RyazanSpace.MailService;
+using RyazanSpace.Core.Exceptions;
 
 namespace RyazanSpace.Domain.Auth.Services
 {

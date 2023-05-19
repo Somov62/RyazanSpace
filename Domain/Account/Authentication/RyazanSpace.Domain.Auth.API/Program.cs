@@ -6,6 +6,8 @@ using RyazanSpace.Domain.Auth.Services;
 using RyazanSpace.Interfaces.Repositories;
 using RyazanSpace.MailService;
 using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace RyazanSpace.Domain.Auth.API
 {
@@ -38,7 +40,23 @@ namespace RyazanSpace.Domain.Auth.API
         private static void ConfigureServices(WebApplicationBuilder builder)
         {
             builder.Services.AddControllers();
+            builder.Services.Configure<ApiBehaviorOptions>(o =>
+            {
+                o.InvalidModelStateResponseFactory = actionContext =>
+                {
+                    StringBuilder message = new();
 
+                    foreach (var value in actionContext.ModelState.Values)
+                    {
+                        foreach (var error in value.Errors)
+                        {
+                            if (string.IsNullOrEmpty(error.ErrorMessage)) continue;
+                            message.AppendLine(error.ErrorMessage);
+                        }
+                    }
+                    return new BadRequestObjectResult(message.ToString());
+                };
+            });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RyazanSpace.Core.Exceptions;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
 using RyazanSpace.Domain.Auth.Services;
@@ -15,7 +16,8 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Login(AuthRequestDTO model)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Login([FromBody] AuthRequestDTO model)
         {
             try
             {
