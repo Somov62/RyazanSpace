@@ -1,5 +1,6 @@
 ﻿using RyazanSpace.DAL.Entities.Account;
 using RyazanSpace.Interfaces.DTO;
+using RyazanSpace.Interfaces.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace RyazanSpace.Domain.Auth.DTO
@@ -9,12 +10,13 @@ namespace RyazanSpace.Domain.Auth.DTO
         public RegRequestDTO() { }
         public RegRequestDTO(User entity) : base(entity) { }
 
+        [Email]
         [Required]
         public string Email { get; set; }
         [Required]
         public string Name { get; set; }
+        [MD5]
         [Required]
-        [RegularExpression("^[0-9a-fA-F]{32}$", ErrorMessage = "Пароль должен быть в формате MD5")]
         public string Password { get; set; }
 
         public override User MapToEntity() => new()

@@ -26,10 +26,6 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
             {
                 return Conflict(ex.Message);
             }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
     }
 }

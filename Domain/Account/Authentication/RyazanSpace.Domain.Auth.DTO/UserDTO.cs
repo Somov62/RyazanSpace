@@ -1,5 +1,6 @@
 ﻿using RyazanSpace.DAL.Entities.Account;
 using RyazanSpace.Interfaces.DTO;
+using RyazanSpace.Interfaces.Validation;
 
 namespace RyazanSpace.Domain.Auth.DTO
 {
@@ -10,6 +11,7 @@ namespace RyazanSpace.Domain.Auth.DTO
 
         public int Id { get; set; }
 
+        [Email]
         public string Email { get; set; }
 
         public string Name { get; set; }
