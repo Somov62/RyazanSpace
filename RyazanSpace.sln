@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Domain.Auth.Mai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.MailService", "Services\MailService\RyazanSpace.MailService\RyazanSpace.MailService.csproj", "{03C78E1C-8DF1-4432-9A1D-5452E50858E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RyazanSpace.Core", "Core\RyazanSpace.Core\RyazanSpace.Core.csproj", "{D6166F93-B231-41B1-9D26-3592935A912E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,10 @@ Global
 		{03C78E1C-8DF1-4432-9A1D-5452E50858E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03C78E1C-8DF1-4432-9A1D-5452E50858E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03C78E1C-8DF1-4432-9A1D-5452E50858E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6166F93-B231-41B1-9D26-3592935A912E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6166F93-B231-41B1-9D26-3592935A912E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6166F93-B231-41B1-9D26-3592935A912E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6166F93-B231-41B1-9D26-3592935A912E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -128,6 +134,7 @@ Global
 		{1142506C-9EDD-4EE4-8143-371843560110} = {89E37E7C-46D0-4976-9234-5CDF08A7F626}
 		{4BF293ED-ED0C-412E-90A9-80DF70A68360} = {89E37E7C-46D0-4976-9234-5CDF08A7F626}
 		{03C78E1C-8DF1-4432-9A1D-5452E50858E6} = {A7500981-D3B0-4F0E-976A-CBF8CCB23C34}
+		{D6166F93-B231-41B1-9D26-3592935A912E} = {9D5B823E-81A0-4EF7-9509-3F8B3A9A58CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CFD240BC-4062-469A-AED5-18B84626A1E0}

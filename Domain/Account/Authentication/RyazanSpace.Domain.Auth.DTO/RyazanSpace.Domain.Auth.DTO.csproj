@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\RyazanSpace.Core\RyazanSpace.Core.csproj" />
     <ProjectReference Include="..\..\..\..\Data\Database\RyazanSpace.DAL.Entities\RyazanSpace.DAL.Entities.csproj" />
     <ProjectReference Include="..\..\..\..\Core\RyazanSpace.Interfaces\RyazanSpace.Interfaces.csproj" />
   </ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using RyazanSpace.DAL.Entities.Resources;
-using RyazanSpace.Interfaces.DTO;
+using RyazanSpace.Core.DTO;
 using System.ComponentModel.DataAnnotations;
 
 namespace RyazanSpace.Domain.Auth.DTO

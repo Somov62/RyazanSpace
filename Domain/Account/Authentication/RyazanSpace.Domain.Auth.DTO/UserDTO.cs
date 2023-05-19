@@ -1,6 +1,6 @@
 ﻿using RyazanSpace.DAL.Entities.Account;
-using RyazanSpace.Interfaces.DTO;
-using RyazanSpace.Interfaces.Validation;
+using RyazanSpace.Core.DTO;
+using RyazanSpace.Core.Validation;
 
 namespace RyazanSpace.Domain.Auth.DTO
 {

@@ -1,6 +1,6 @@
 ﻿using RyazanSpace.Interfaces.Entities;
 
-namespace RyazanSpace.Interfaces.DTO
+namespace RyazanSpace.Core.DTO
 {
     public abstract class EntityDTO<T> where T : class, IEntity
     {

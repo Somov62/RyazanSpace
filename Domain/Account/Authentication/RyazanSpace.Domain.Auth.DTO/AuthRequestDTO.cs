@@ -1,4 +1,4 @@
-﻿using RyazanSpace.Interfaces.Validation;
+﻿using RyazanSpace.Core.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace RyazanSpace.Domain.Auth.DTO

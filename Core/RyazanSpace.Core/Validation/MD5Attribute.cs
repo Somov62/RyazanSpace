@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 
-namespace RyazanSpace.Interfaces.Validation
+namespace RyazanSpace.Core.Validation
 {
     public class MD5Attribute : ValidationAttribute
     {
