@@ -2,8 +2,9 @@
 using RyazanSpace.DAL.WebApiClients.Repositories.Account;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
+using RyazanSpace.Domain.Auth.Mails;
 using RyazanSpace.Interfaces.Repositories;
-using System.Text.RegularExpressions;
+using RyazanSpace.MailService;
 
 namespace RyazanSpace.Domain.Auth.Services
 {
@@ -11,13 +12,16 @@ namespace RyazanSpace.Domain.Auth.Services
     {
         private readonly IRepository<ResetPasswordSession> _passwordRepository;
         private readonly WebUserRepository _userRepository;
+        private readonly EmailSender _mailService;
 
         public ResetPasswordService(
             IRepository<ResetPasswordSession> passwordRepository,
-            WebUserRepository userRepository)
+            WebUserRepository userRepository,
+            EmailSender mailService)
         {
             _passwordRepository = passwordRepository;
             _userRepository = userRepository;
+            _mailService = mailService;
         }
 
         /// <summary>
@@ -28,7 +32,7 @@ namespace RyazanSpace.Domain.Auth.Services
         /// <param name="model"><see cref="ResetPasswordRequestDTO"/> - модель с логином и почтой пользователя</param>
         /// <exception cref="NotFoundException"/>
         /// <returns>id созданной сессии</returns>
-        public async Task<int> CreateSession(ResetPasswordRequestDTO model)
+        public async Task<int> CreateSession(ResetPasswordRequestDTO model, string cancelEndPoint)
         {
             var user = await _userRepository.GetByEmail(model.UserEmail).ConfigureAwait(false);
             if (user == null)
@@ -43,7 +47,13 @@ namespace RyazanSpace.Domain.Auth.Services
                 Owner = user,
                 VerificationCode = rnd.Next(10000, 100000)
             };
-            session = await _passwordRepository.Add(session);
+            session = await _passwordRepository.Add(session).ConfigureAwait(false);
+            await _mailService.SendEmailAsync(
+                new ResetPasswordMessage(
+                    user.Email, 
+                    session.VerificationCode, 
+                    cancelEndPoint.Replace("ID", session.Id.ToString()
+                    )));
             return session.Id;
         }
 
@@ -57,7 +67,7 @@ namespace RyazanSpace.Domain.Auth.Services
         /// <exception cref="TimeOutSessionException"/>
         /// <exception cref="ArgumentException"/>
         /// <returns>true - в случае успеха</returns>
-        public async Task<bool> ConfirmSession(ConfirmResetPasswordDTO model)
+        public async Task<bool> ConfirmSession(ConfirmResetPasswordDTO model, string cancelEndPoint)
         {
             if (model.SessionId < 1)
                 throw new NotFoundException("Сессия сброса пароля не найдена!");
@@ -75,6 +85,11 @@ namespace RyazanSpace.Domain.Auth.Services
             var user = await _userRepository.GetById(session.Owner.Id).ConfigureAwait(false);
             user.Password = model.NewPassword;
             await _userRepository.Update(user).ConfigureAwait(false);
+            await _mailService.SendEmailAsync(
+                new SuccessResetPasswordMessage(
+                    user.Email, 
+                    user.Name, 
+                    cancelEndPoint.Replace("ID", session.Id.ToString())));
             return true;
         }
 

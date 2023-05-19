@@ -3,6 +3,8 @@ using RyazanSpace.DAL.WebApiClients.Repositories.Account;
 using RyazanSpace.DAL.WebApiClients.Repositories.Base;
 using RyazanSpace.Domain.Auth.Services;
 using RyazanSpace.Interfaces.Repositories;
+using RyazanSpace.MailService;
+using System.Net;
 
 namespace RyazanSpace.Domain.Auth.API
 {
@@ -22,7 +24,7 @@ namespace RyazanSpace.Domain.Auth.API
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
@@ -53,9 +55,14 @@ namespace RyazanSpace.Domain.Auth.API
                client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/ResetPasswordSessions/"); });
 
 
-            builder.Services.AddScoped(typeof(RegistrationService));
-            builder.Services.AddScoped(typeof(EmailVerificationService));
-            builder.Services.AddScoped(typeof(ResetPasswordService));
+            builder.Services.AddScoped<RegistrationService>();
+            builder.Services.AddScoped<EmailVerificationService>();
+            builder.Services.AddScoped<ResetPasswordService>();
+            builder.Services.AddScoped(c => new EmailSender(
+                new NetworkCredential(
+                    builder.Configuration["EmailSenderUserName"], 
+                    builder.Configuration["EmailSenderPassword"])));
+
         }
     }
 }

@@ -3,7 +3,9 @@ using RyazanSpace.DAL.Entities.Credentials;
 using RyazanSpace.DAL.WebApiClients.Repositories.Account;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
+using RyazanSpace.Domain.Auth.Mails;
 using RyazanSpace.Interfaces.Repositories;
+using RyazanSpace.MailService;
 
 namespace RyazanSpace.Domain.Auth.Services
 {
@@ -12,13 +14,17 @@ namespace RyazanSpace.Domain.Auth.Services
 
         private readonly WebUserRepository _userRepository;
         private readonly IRepository<EmailVerificationSession> _emailRepository;
+        private readonly EmailSender _mailService;
 
         public EmailVerificationService(
             WebUserRepository userRepository,
-            IRepository<EmailVerificationSession> emailRepository)
+            IRepository<EmailVerificationSession> emailRepository,
+            EmailSender mailService
+            )
         {
             _userRepository = userRepository;
             _emailRepository = emailRepository;
+            _mailService = mailService;
         }
 
         /// <summary>
@@ -53,7 +59,9 @@ namespace RyazanSpace.Domain.Auth.Services
                 Owner = user,
                 VerificationCode = rnd.Next(10000, 100000)
             };
-            session = await _emailRepository.Add(session);
+           // session = await _emailRepository.Add(session);
+            await _mailService.SendEmailAsync(
+                new EmailVerificationMessage(user.Email, session.VerificationCode)).ConfigureAwait(false);
             return session.Id;
         }
 
@@ -84,6 +92,8 @@ namespace RyazanSpace.Domain.Auth.Services
             var user = await this.GetUserById(session.Owner.Id).ConfigureAwait(false);
             user.IsEmailVerified = true;
             await _userRepository.Update(user).ConfigureAwait(false);
+            await _mailService.SendEmailAsync(
+                new SuccessEmailVerificationMessage(user.Email, user.Name)).ConfigureAwait(false);
             return true;
         }
 
