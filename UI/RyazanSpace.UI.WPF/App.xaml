@@ -2,8 +2,39 @@
     x:Class="RyazanSpace.UI.WPF.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:m="clr-namespace:RyazanSpace.UI.WPF.ViewModels" xmlns:w="clr-namespace:RyazanSpace.UI.WPF.Views.Windows"
-    xmlns:l="clr-namespace:RyazanSpace.UI.WPF"
+    xmlns:authM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Authentication" xmlns:authP="clr-namespace:RyazanSpace.UI.WPF.Views.Authentication"
+    xmlns:menuM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Main" xmlns:menuP="clr-namespace:RyazanSpace.UI.WPF.Views.Main"
     StartupUri="Views/Windows/MainWindow.xaml">
-    <Application.Resources />
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Themes/LightTheme.xaml" />
+                <ResourceDictionary Source="Resources/Styles/ButtonStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/TextBoxStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/CheckBoxStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type authM:AuthViewModel}">
+                <authP:AuthPage />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type authM:ResetPasswordViewModel}">
+                <authP:ResetPasswordPage />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type authM:RegistrationViewModel}">
+                <authP:RegistrationPage />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type authM:EmailVerificationViewModel}">
+                <authP:EmailVerificationPage />
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type menuM:MenuViewModel}">
+                <menuP:MenuPage />
+            </DataTemplate>
+        </ResourceDictionary>
+
+    </Application.Resources>
 </Application>

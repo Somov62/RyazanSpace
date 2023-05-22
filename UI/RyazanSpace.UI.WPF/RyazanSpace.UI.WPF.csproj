@@ -7,4 +7,44 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\Pictures\cant.png" />
+    <None Remove="Resources\Pictures\Logo\linelogo.png" />
+    <None Remove="Resources\Pictures\Logo\logo.png" />
+    <None Remove="Resources\Pictures\Photos\town1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Pictures\cant.png" />
+    <Resource Include="Resources\Pictures\Logo\linelogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Converters\" />
+    <Folder Include="Resources\Font\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Account\Authentication\RyazanSpace.Domain.Auth.API.Client\RyazanSpace.Domain.Auth.API.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Pictures\Logo\logo.png" />
+    <Resource Include="Resources\Pictures\Photos\town1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

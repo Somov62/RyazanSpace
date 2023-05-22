@@ -1,6 +1,7 @@
 ﻿using RyazanSpace.UI.WPF.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace RyazanSpace.UI.WPF.Services
 {
@@ -8,6 +9,8 @@ namespace RyazanSpace.UI.WPF.Services
     {
         private BaseViewModel _currentView = null!;
         private readonly Stack<BaseViewModel> _viewsStack = new();
+        public Window MainWindow => App.Current.MainWindow;
+
 
         public BaseViewModel CurrentView
         {

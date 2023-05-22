@@ -4,8 +4,200 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:fa="http://schemas.fontawesome.io/icons/" xmlns:v="clr-namespace:RyazanSpace.UI.WPF.ViewModels"
     xmlns:l="clr-namespace:RyazanSpace.UI.WPF.Views.Windows"
-    Title="MainWindow"
-    Width="800" Height="450">
-    <Grid />
+    Name="window" Title="MainWindow"
+    Background="Transparent"
+    Width="1200" Height="750"
+    MinWidth="1200" MinHeight="750"
+    MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
+    AllowsTransparency="True" MouseDown="window_MouseDown"
+    WindowStyle="None">
+    <Window.DataContext>
+        <v:MainViewModel />
+    </Window.DataContext>
+    <Window.Resources>
+        <Style x:Key="RectBorderStyle" TargetType="Rectangle">
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Fill" Value="Transparent" />
+            <Setter Property="Tag" Value="{Binding RelativeSource={RelativeSource AncestorType=Window}}" />
+        </Style>
+    </Window.Resources>
+    <Border
+        Background="{DynamicResource WindowBackground}"
+        Margin="10"
+        CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.ColumnSpan="3"
+                    Background="Transparent"
+                    Margin="-10"
+                    CornerRadius="20, 20, 0, 0" MouseDown="Border_MouseDown" />
+                <StackPanel
+                    Orientation="Horizontal"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+                    <Border VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal" Margin="5,0">
+                            <Button
+                                FontSize="{Binding FontSize, ElementName=btnResize}"
+                                Click="ChangeThemeButton_Click"
+                                Style="{StaticResource WindowNavButtonStyle}">
+                                <fa:FontAwesome Icon="MoonOutline">
+                                </fa:FontAwesome>
+                            </Button>
+                            <Button
+                                FontSize="{Binding FontSize, ElementName=btnResize}"
+                                Margin="10,0,0,0"
+                                Click="MinimazedButton_Click" Content="🗕"
+                                Style="{StaticResource WindowNavButtonStyle}" />
+                            <Button
+                                Name="btnResize"
+                                Margin="10,0"
+                                Click="MaximazedButton_Click"
+                                DataContext="{Binding ElementName=window}">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource WindowNavButtonStyle}">
+                                        <Setter Property="Content" Value="🗖" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Path=WindowState, ElementName=window}" Value="Maximized">
+                                                <Setter Property="Content" Value="🗗" />
+                                                <Setter Property="FontSize" Value="18" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button
+                                FontSize="{Binding FontSize, ElementName=btnResize}"
+                                Click="CloseButton_Click" Content="🗙"
+                                Style="{StaticResource WindowNavButtonStyle}" />
+                        </StackPanel>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="15" />
+                                <Setter Property="Background" Value="{DynamicResource WindowNavBtnBackground}" />
+                                <Setter Property="HorizontalAlignment" Value="Right" />
+                                <Setter Property="VerticalAlignment" Value="Top" />
+                                <Setter Property="Padding" Value="10,5" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=WindowState, ElementName=window}" Value="Maximized">
+                                        <Setter Property="CornerRadius" Value="20" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </StackPanel>
+                <Border
+                    Background="{DynamicResource WindowNavBtnBackground}"
+                    VerticalAlignment="Top"
+                    CornerRadius="15" IsHitTestVisible="False">
+                    <DockPanel Margin="10,10,15,10" LastChildFill="True">
+                        <Image
+                            Height="25"
+                            IsHitTestVisible="False" Source="pack://application:,,,/Resources/Pictures/Logo/linelogo.png" />
+
+                        <Border
+                            Height="30"
+                            Margin="10,-5"
+                            HorizontalAlignment="Stretch">
+                            <Border.Background>
+                                <DrawingBrush
+                                    TileMode="Tile" Viewport="0,0, 35, 30"
+                                    ViewportUnits="Absolute">
+                                    <DrawingBrush.Drawing>
+                                        <ImageDrawing ImageSource="pack://application:,,,/Resources/Pictures/cant.png" Rect="0,0,1,1" />
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Border.Background>
+                        </Border>
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+            <Frame
+                Grid.Row="1" Grid.Column="1"
+                Margin="10,20,40,20"
+                Content="{Binding CurrentView}"
+                NavigationUIVisibility="Hidden" />
+
+
+            <Grid Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Rectangle
+                    x:Name="leftSizeGrip"
+                    Width="7"
+                    HorizontalAlignment="Left"
+                    Cursor="SizeWE" MouseLeftButtonDown="Resize_Init"
+                    MouseLeftButtonUp="Resize_End" MouseMove="Resizeing_Form"
+                    Style="{StaticResource RectBorderStyle}" />
+                <Rectangle
+                    x:Name="rightSizeGrip"
+                    Width="7"
+                    HorizontalAlignment="Right"
+                    Cursor="SizeWE" MouseLeftButtonDown="Resize_Init"
+                    MouseLeftButtonUp="Resize_End" MouseMove="Resizeing_Form"
+                    Style="{StaticResource RectBorderStyle}" />
+                <Rectangle
+                    x:Name="topSizeGrip"
+                    Height="7"
+                    VerticalAlignment="Top"
+                    Cursor="SizeNS" MouseLeftButtonDown="Resize_Init"
+                    MouseLeftButtonUp="Resize_End" MouseMove="Resizeing_Form"
+                    Style="{StaticResource RectBorderStyle}" />
+                <Rectangle
+                    x:Name="bottomSizeGrip"
+                    Height="7"
+                    VerticalAlignment="Bottom"
+                    Cursor="SizeNS" MouseLeftButtonDown="Resize_Init"
+                    MouseLeftButtonUp="Resize_End" MouseMove="Resizeing_Form"
+                    Style="{StaticResource RectBorderStyle}" />
+                <!--  Corners  -->
+                <Rectangle
+                    Name="topLeftSizeGrip"
+                    Width="7" Height="7"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Cursor="SizeNWSE" MouseLeftButtonDown="Resize_Init"
+                    MouseLeftButtonUp="Resize_End" MouseMove="Resizeing_Form"
+                    Style="{StaticResource RectBorderStyle}" />
+                <Rectangle
+                    Name="bottomRightSizeGrip"
+                    Width="7" Height="7"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Cursor="SizeNWSE" MouseLeftButtonDown="Resize_Init"
+                    MouseLeftButtonUp="Resize_End" MouseMove="Resizeing_Form"
+                    Style="{StaticResource RectBorderStyle}" />
+                <Rectangle
+                    Name="topRightSizeGrip"
+                    Width="7" Height="7"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Cursor="SizeNESW" MouseLeftButtonDown="Resize_Init"
+                    MouseLeftButtonUp="Resize_End" MouseMove="Resizeing_Form"
+                    Style="{StaticResource RectBorderStyle}" />
+                <Rectangle
+                    Name="bottomLeftSizeGrip"
+                    Width="7" Height="7"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Cursor="SizeNESW" MouseLeftButtonDown="Resize_Init"
+                    MouseLeftButtonUp="Resize_End" MouseMove="Resizeing_Form"
+                    Style="{StaticResource RectBorderStyle}" />
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

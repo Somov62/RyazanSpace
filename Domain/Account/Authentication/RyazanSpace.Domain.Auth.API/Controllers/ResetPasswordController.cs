@@ -53,7 +53,6 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
                 return Ok(await _service.ConfirmSession(model));
             }
             catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (ArgumentException ex) { return BadRequest(ex.Message); }
             catch (TimeOutSessionException ex) 
             { return StatusCode(StatusCodes.Status408RequestTimeout, ex.Message); }
         }

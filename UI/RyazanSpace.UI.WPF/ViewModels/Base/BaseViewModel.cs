@@ -1,4 +1,5 @@
 ﻿using RyazanSpace.UI.WPF.MVVM;
+using RyazanSpace.UI.WPF.Services.Locator;
 using System.Runtime.CompilerServices;
 
 namespace RyazanSpace.UI.WPF.ViewModels.Base
@@ -17,5 +18,7 @@ namespace RyazanSpace.UI.WPF.ViewModels.Base
         }
 
         public virtual void OnAppearing() => this.OnPropertyChanged();
+
+        protected ServiceLocator Locator => ServiceLocator.Instanse;
     }
 }

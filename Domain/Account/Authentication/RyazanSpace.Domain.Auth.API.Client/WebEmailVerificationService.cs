@@ -17,7 +17,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <param name="userId">id пользователя</param>
         /// <exception cref="NotFoundException"/>
         /// <returns>true - почта подтверждена, в остальных случаях - false</returns>
-        public async Task<bool> CheckEmailVerified(int userId, CancellationToken cancel)
+        public async Task<bool> CheckEmailVerified(int userId, CancellationToken cancel = default)
         {
             var response = await HttpClient.GetAsync($"check?userId={userId}", cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
@@ -37,7 +37,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <param name="userId">id пользователя</param>
         /// <exception cref="NotFoundException"/>
         /// <returns>id созданной сессии</returns>
-        public async Task<int> CreateSession(int userId, CancellationToken cancel)
+        public async Task<int> CreateSession(int userId, CancellationToken cancel = default)
         {
             var response = await HttpClient.PostAsync($"?userId={userId}", null, cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
@@ -58,7 +58,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <exception cref="TimeOutSessionException"/>
         /// <exception cref="ArgumentException"/>
         /// <returns>true - в случае успеха</returns>
-        public async Task<bool> ConfirmSession(EmailVerificationRequestDTO model, CancellationToken cancel)
+        public async Task<bool> ConfirmSession(EmailVerificationRequestDTO model, CancellationToken cancel = default)
         {
             var response = await HttpClient.PostAsJsonAsync($"confirm", model, cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)

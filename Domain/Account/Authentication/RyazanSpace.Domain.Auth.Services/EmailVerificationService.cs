@@ -88,7 +88,7 @@ namespace RyazanSpace.Domain.Auth.Services
                 throw new TimeOutSessionException("Сессия подтвердения почты устарела! Повторите процесс с начала.");
 
             if (session.VerificationCode != model.VerificationCode)
-                throw new ArgumentException("Неверный код подтверждения");
+                return false;
 
             var user = await this.GetUserById(session.Owner.Id).ConfigureAwait(false);
             user.IsEmailVerified = true;

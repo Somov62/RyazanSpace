@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RyazanSpace.Domain.Auth.API.Client;
 using RyazanSpace.UI.WPF.Services;
+using RyazanSpace.UI.WPF.Services.Locator;
+using RyazanSpace.UI.WPF.Services.MessageBoxes;
 using RyazanSpace.UI.WPF.ViewModels;
 using RyazanSpace.UI.WPF.Views.Windows;
 using System;
@@ -17,7 +20,7 @@ namespace RyazanSpace.UI.WPF
 
         public static Window WindowCurrent => WindowFocused ?? WindowActivate;
 
-        public static IHost __Hosting;
+        private static IHost __Hosting;
         public static IHost Hosting => __Hosting ??= App.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
         public static IServiceProvider Services => Hosting.Services;
 
@@ -25,14 +28,16 @@ namespace RyazanSpace.UI.WPF
 
         protected override async void OnStartup(StartupEventArgs e)
         {
+            var theme = ServiceLocator.Instanse.Settings.Configuration.ActiveTheme;
+            ServiceLocator.Instanse.Theme.SetTheme(theme);
             var host = Hosting;
             base.OnStartup(e);
             await host.StartAsync().ConfigureAwait(true);
-            Services.GetRequiredService<MainWindow>().Show();
         }
 
         protected override async void OnExit(ExitEventArgs e)
         {
+            ServiceLocator.Instanse.Settings.SaveChanges();
             using var host = Hosting;
             base.OnExit(e);
             await host.StopAsync().ConfigureAwait(false);
@@ -46,8 +51,27 @@ namespace RyazanSpace.UI.WPF
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
+            services.AddTransient<WebExceptionsHandler>();
             services.AddSingleton<NavigationService>();
-            services.AddScoped<MainViewModel>();
+            services.AddSingleton<SettingsService>();
+            services.AddTransient<ThemeService>();
+            services.AddTransient<MboxService>();
+
+            services.AddHttpClient<WebAuthService>
+                  (configureClient:
+                  client => { client.BaseAddress = new Uri($"{host.Configuration["AuthAPI"]}/Auth/"); });
+
+            services.AddHttpClient<WebRegistrationService>
+                  (configureClient:
+                  client => { client.BaseAddress = new Uri($"{host.Configuration["AuthAPI"]}/Registration/"); });
+            
+            services.AddHttpClient<WebEmailVerificationService>
+                  (configureClient:
+                  client => { client.BaseAddress = new Uri($"{host.Configuration["AuthAPI"]}/EmailVerification/"); });
+
+            services.AddHttpClient<WebResetPasswordService>
+                  (configureClient:
+                  client => { client.BaseAddress = new Uri($"{host.Configuration["AuthAPI"]}/ResetPassword/"); });
         }
     }
 }

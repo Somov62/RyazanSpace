@@ -17,7 +17,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <returns><see cref="UserDTO"/> - модель пользоваетеля</returns>
         /// <exception cref="UserAlreadyExistsException"></exception>
         /// <exception cref="WebException"></exception>
-        public async Task<UserDTO> Register(RegRequestDTO model, CancellationToken cancel)
+        public async Task<UserDTO> Register(RegRequestDTO model, CancellationToken cancel = default)
         {
             var response = await HttpClient.PostAsJsonAsync("register", model, cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)

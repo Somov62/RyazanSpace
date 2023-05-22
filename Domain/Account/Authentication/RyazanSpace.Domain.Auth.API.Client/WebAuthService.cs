@@ -20,7 +20,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         /// <exception cref="UserNotVerifiedException"></exception>
-        public async Task<TokenResponseDTO> Login(AuthRequestDTO model, CancellationToken cancel)
+        public async Task<TokenResponseDTO> Login(AuthRequestDTO model, CancellationToken cancel = default)
         {
             var response = await HttpClient.PostAsJsonAsync($"login", model, cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
@@ -45,7 +45,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
         /// <exception cref="TimeOutSessionException"></exception>
-        public async Task Logout(string token, CancellationToken cancel)
+        public async Task Logout(string token, CancellationToken cancel = default)
         {
             var response = await HttpClient.GetAsync($"logout?token={token}", cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
@@ -62,7 +62,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <param name="cancel"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        public async Task<TokenResponseDTO> RefreshToken(string token, CancellationToken cancel)
+        public async Task<TokenResponseDTO> RefreshToken(string token, CancellationToken cancel = default)
         {
             var response = await HttpClient.GetAsync($"refresh?token={token}", cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
@@ -81,7 +81,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <param name="cancel"></param>
         /// <returns></returns>
         /// <exception cref="NotFoundException"></exception>
-        public async Task BreakToken(string token, CancellationToken cancel)
+        public async Task BreakToken(string token, CancellationToken cancel = default)
         {
             var response = await HttpClient.GetAsync($"logout?token={token}", cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)

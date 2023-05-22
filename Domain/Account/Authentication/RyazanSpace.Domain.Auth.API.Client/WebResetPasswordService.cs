@@ -16,7 +16,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// </summary>
         /// <param name="sessionId">id cecсии сброса пароля из бд</param>
         /// <returns></returns>
-        public async Task BreakSession(int sessionId, CancellationToken cancel)
+        public async Task BreakSession(int sessionId, CancellationToken cancel = default)
         {
             var response = await HttpClient.GetAsync($"{sessionId}/break", cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
@@ -33,7 +33,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <param name="model"><see cref="ResetPasswordRequestDTO"/> - модель с логином и почтой пользователя</param>
         /// <exception cref="NotFoundException"/>
         /// <returns>id созданной сессии</returns>
-        public async Task<int> CreateSession(ResetPasswordRequestDTO model, CancellationToken cancel)
+        public async Task<int> CreateSession(ResetPasswordRequestDTO model, CancellationToken cancel = default)
         {
             var response = await HttpClient.PostAsJsonAsync($"", model, cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
@@ -55,7 +55,7 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// <exception cref="TimeOutSessionException"/>
         /// <exception cref="ArgumentException"/>
         /// <returns>true - в случае успеха</returns>
-        public async Task<bool> ConfirmSession(ConfirmResetPasswordDTO model, CancellationToken cancel)
+        public async Task<bool> ConfirmSession(ConfirmResetPasswordDTO model, CancellationToken cancel = default)
         {
             var response = await HttpClient.PostAsJsonAsync($"confirm", model, cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
