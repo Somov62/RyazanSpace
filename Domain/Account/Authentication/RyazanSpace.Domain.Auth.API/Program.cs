@@ -8,6 +8,7 @@ using RyazanSpace.MailService;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using RyazanSpace.Interfaces.Email;
 
 namespace RyazanSpace.Domain.Auth.API
 {
@@ -81,7 +82,7 @@ namespace RyazanSpace.Domain.Auth.API
             builder.Services.AddScoped<EmailVerificationService>();
             builder.Services.AddScoped<ResetPasswordService>();
             builder.Services.AddScoped<AuthService>();
-            builder.Services.AddScoped(c => new EmailSender(
+            builder.Services.AddScoped<IEmailSender, EmailSender>(c => new EmailSender(
                 new NetworkCredential(
                     builder.Configuration["EmailSenderUserName"], 
                     builder.Configuration["EmailSenderPassword"])));

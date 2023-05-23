@@ -11,6 +11,26 @@ namespace RyazanSpace.Domain.Auth.API.Client
     {
         public WebAuthService(HttpClient client) : base(client) { }
 
+
+        /// <summary>
+        /// Метод аунтефикации по токену
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="cancel"></param>
+        /// <returns>id владельца токена, null в случае несуществующего токена</returns>
+
+        public async Task<int?> TryGetUserByToken(string token, CancellationToken cancel = default)
+        {
+            var response = await HttpClient.GetAsync($"token/{token}", cancel).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+                return await response
+                 .Content
+                     .ReadFromJsonAsync<int>(cancellationToken: cancel)
+                     .ConfigureAwait(false);
+
+            return null;
+        }
+
         /// <summary>
         ///  /// <para>Метод для входа в аккаунт.</para>
         /// Создает токен доступа

@@ -1,11 +1,11 @@
-﻿using RyazanSpace.DAL.Entities.Credentials;
+﻿using RyazanSpace.Core.Exceptions;
 using RyazanSpace.DAL.Client.Repositories.Account;
+using RyazanSpace.DAL.Entities.Credentials;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
 using RyazanSpace.Domain.Auth.Mails;
+using RyazanSpace.Interfaces.Email;
 using RyazanSpace.Interfaces.Repositories;
-using RyazanSpace.MailService;
-using RyazanSpace.Core.Exceptions;
 
 namespace RyazanSpace.Domain.Auth.Services
 {
@@ -13,12 +13,12 @@ namespace RyazanSpace.Domain.Auth.Services
     {
         private readonly IRepository<ResetPasswordSession> _passwordRepository;
         private readonly WebUserRepository _userRepository;
-        private readonly EmailSender _mailService;
+        private readonly IEmailSender _mailService;
 
         public ResetPasswordService(
             IRepository<ResetPasswordSession> passwordRepository,
             WebUserRepository userRepository,
-            EmailSender mailService)
+            IEmailSender mailService)
         {
             _passwordRepository = passwordRepository;
             _userRepository = userRepository;

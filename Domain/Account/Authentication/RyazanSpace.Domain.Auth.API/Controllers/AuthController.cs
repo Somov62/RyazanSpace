@@ -12,6 +12,17 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
 
         public AuthController(AuthService service) => _service = service;
 
+        [HttpGet("token/{token}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetUserId(string token)
+        {
+            try
+            {
+                return Ok(await _service.UserByToken(token));
+            }
+            catch (NotFoundException ex) { return NotFound(ex.Message); }
+        }
 
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]

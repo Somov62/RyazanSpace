@@ -47,11 +47,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Domain.Auth.Mai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.MailService", "Services\MailService\RyazanSpace.MailService\RyazanSpace.MailService.csproj", "{03C78E1C-8DF1-4432-9A1D-5452E50858E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RyazanSpace.Core", "Core\RyazanSpace.Core\RyazanSpace.Core.csproj", "{D6166F93-B231-41B1-9D26-3592935A912E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Core", "Core\RyazanSpace.Core\RyazanSpace.Core.csproj", "{D6166F93-B231-41B1-9D26-3592935A912E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{B25F93AF-125C-4C10-B1CC-D1CCCCC6D142}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RyazanSpace.UI.WPF", "UI\RyazanSpace.UI.WPF\RyazanSpace.UI.WPF.csproj", "{149444F5-F87A-48A9-8F72-04DAE34D50E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.UI.WPF", "UI\RyazanSpace.UI.WPF\RyazanSpace.UI.WPF.csproj", "{149444F5-F87A-48A9-8F72-04DAE34D50E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

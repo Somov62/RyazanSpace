@@ -1,9 +1,10 @@
 ﻿using System.Net.Mail;
 using System.Net;
+using RyazanSpace.Interfaces.Email;
 
 namespace RyazanSpace.MailService
 {
-    public class EmailSender
+    public class EmailSender : IEmailSender
     {
         private readonly NetworkCredential _credentials;
 

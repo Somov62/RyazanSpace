@@ -5,8 +5,8 @@ using RyazanSpace.DAL.Client.Repositories.Credentials;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
 using RyazanSpace.Domain.Auth.Mails;
-using RyazanSpace.MailService;
 using RyazanSpace.Core.Exceptions;
+using RyazanSpace.Interfaces.Email;
 
 namespace RyazanSpace.Domain.Auth.Services
 {
@@ -14,16 +14,32 @@ namespace RyazanSpace.Domain.Auth.Services
     {
         private readonly WebUserTokenRepository _tokenRepository;
         private readonly WebUserRepository _userRepository;
-        private readonly EmailSender _mailService;
+        private readonly IEmailSender _mailService;
 
         public AuthService(
             WebUserTokenRepository tokenRepository,
             WebUserRepository userRepository,
-            EmailSender mailService)
+            IEmailSender mailService)
         {
             _tokenRepository = tokenRepository;
             _userRepository = userRepository;
             _mailService = mailService;
+        }
+
+
+        /// <summary>
+        /// Метод аунтефикации по токену
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="cancel"></param>
+        /// <returns>пользователя, владеющего данным токеном</returns>
+        /// <exception cref="NotFoundException"></exception>
+        public async Task<int> UserByToken(string token, CancellationToken cancel = default)
+        {
+            var sessionToken = await _tokenRepository.GetByToken(token);
+            if (sessionToken == null || sessionToken.DateExpire < DateTimeOffset.Now)
+                throw new NotFoundException("Сессия не найдена!");
+            return sessionToken.Id;
         }
 
         /// <summary>

@@ -1,9 +1,6 @@
 ﻿using RyazanSpace.DAL.Client.Repositories.Account;
 using RyazanSpace.Domain.Auth.DTO;
 using RyazanSpace.Domain.Auth.Exceptions;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace RyazanSpace.Domain.Auth.Services
 {
