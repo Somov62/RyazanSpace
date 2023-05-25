@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\RyazanSpace.Core\RyazanSpace.Core.csproj" />
+    <ProjectReference Include="..\RyazanSpace.Domain.Profile.DTO\RyazanSpace.Domain.Profile.DTO.csproj" />
+  </ItemGroup>
+
+</Project>

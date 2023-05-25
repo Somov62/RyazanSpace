@@ -13,6 +13,8 @@ namespace RyazanSpace.Core.API
             string message = await response.Content.ReadAsStringAsync(cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
                 throw new NotFoundException(message);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new UnauthorizedException();
             throw new WebException(message);
         }
     }

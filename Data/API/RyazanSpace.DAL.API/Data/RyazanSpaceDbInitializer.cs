@@ -28,7 +28,11 @@ namespace RyazanSpace.DAL.API.Data
                 users[i] = new User()
                 {
                     Email = $"user{i}@mail.com",
-                    Name = $"user{i}"
+                    Name = $"user{i}",
+                    Password = "81dc9bdb52d04dc20036dbd8313ed055",
+                    IsEmailVerified = true,
+                    RegDate = DateTimeOffset.Now,
+                    Status = "status"
                 };
             }
             _db.Users.AddRange(users);

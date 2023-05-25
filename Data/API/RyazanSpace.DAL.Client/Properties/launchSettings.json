@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "RyazanSpace.DAL.Client": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:61276;http://localhost:61278"
+    }
+  }
+}

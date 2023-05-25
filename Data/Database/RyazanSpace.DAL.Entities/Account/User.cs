@@ -1,5 +1,5 @@
 ﻿using RyazanSpace.DAL.Entities.Base;
-using RyazanSpace.DAL.Entities.Resources;
+using RyazanSpace.DAL.Entities.Resources.Base;
 using System.ComponentModel.DataAnnotations;
 
 namespace RyazanSpace.DAL.Entities.Account
@@ -17,6 +17,10 @@ namespace RyazanSpace.DAL.Entities.Account
 
         public bool IsEmailVerified { get; set; }
 
-        public Image ProfileImage { get; set; }
+        public CloudResource Avatar { get; set; }
+
+        public string Status { get; set; }
+
+        public DateTimeOffset RegDate { get; set; }
     }
 }

@@ -30,6 +30,9 @@ namespace RyazanSpace.DAL.SqlServer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AvatarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -47,10 +50,15 @@ namespace RyazanSpace.DAL.SqlServer.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ProfileImageId")
-                        .HasColumnType("int");
+                    b.Property<DateTimeOffset>("RegDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AvatarId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -58,9 +66,10 @@ namespace RyazanSpace.DAL.SqlServer.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.HasIndex("ProfileImageId");
-
-                    b.ToTable("Users");
+                    b.ToTable("Users", t =>
+                        {
+                            t.HasCheckConstraint("Avatar", "AvatarId = 1");
+                        });
                 });
 
             modelBuilder.Entity("RyazanSpace.DAL.Entities.Credentials.EmailVerificationSession", b =>
@@ -142,7 +151,7 @@ namespace RyazanSpace.DAL.SqlServer.Migrations
                     b.ToTable("UserTokens");
                 });
 
-            modelBuilder.Entity("RyazanSpace.DAL.Entities.Resources.Document", b =>
+            modelBuilder.Entity("RyazanSpace.DAL.Entities.Resources.Base.CloudResource", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -154,45 +163,26 @@ namespace RyazanSpace.DAL.SqlServer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OwnerId")
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Documents");
-                });
-
-            modelBuilder.Entity("RyazanSpace.DAL.Entities.Resources.Image", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("DownloadLink")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("Images");
+                    b.ToTable("CloudResources");
                 });
 
             modelBuilder.Entity("RyazanSpace.DAL.Entities.Account.User", b =>
                 {
-                    b.HasOne("RyazanSpace.DAL.Entities.Resources.Image", "ProfileImage")
+                    b.HasOne("RyazanSpace.DAL.Entities.Resources.Base.CloudResource", "Avatar")
                         .WithMany()
-                        .HasForeignKey("ProfileImageId");
+                        .HasForeignKey("AvatarId");
 
-                    b.Navigation("ProfileImage");
+                    b.Navigation("Avatar");
                 });
 
             modelBuilder.Entity("RyazanSpace.DAL.Entities.Credentials.EmailVerificationSession", b =>
@@ -225,22 +215,13 @@ namespace RyazanSpace.DAL.SqlServer.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("RyazanSpace.DAL.Entities.Resources.Document", b =>
+            modelBuilder.Entity("RyazanSpace.DAL.Entities.Resources.Base.CloudResource", b =>
                 {
                     b.HasOne("RyazanSpace.DAL.Entities.Account.User", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("RyazanSpace.DAL.Entities.Resources.Image", b =>
-                {
-                    b.HasOne("RyazanSpace.DAL.Entities.Account.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
                 });

@@ -14,16 +14,16 @@ namespace RyazanSpace.Domain.Auth.API.Client
         /// Регистрация пользователя в системе
         /// </summary>
         /// <param name="model"><see cref="RegRequestDTO"/> - модель первичных данных</param>
-        /// <returns><see cref="UserDTO"/> - модель пользоваетеля</returns>
+        /// <returns><see cref="RegResponseDTO"/> - модель пользоваетеля</returns>
         /// <exception cref="UserAlreadyExistsException"></exception>
         /// <exception cref="WebException"></exception>
-        public async Task<UserDTO> Register(RegRequestDTO model, CancellationToken cancel = default)
+        public async Task<RegResponseDTO> Register(RegRequestDTO model, CancellationToken cancel = default)
         {
             var response = await HttpClient.PostAsJsonAsync("register", model, cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
                 return await response
                     .Content
-                    .ReadFromJsonAsync<UserDTO>(cancellationToken: cancel)
+                    .ReadFromJsonAsync<RegResponseDTO>(cancellationToken: cancel)
                     .ConfigureAwait(false);
 
             string message = await response.Content.ReadAsStringAsync(cancel).ConfigureAwait(false);

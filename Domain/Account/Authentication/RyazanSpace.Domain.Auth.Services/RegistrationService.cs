@@ -15,9 +15,9 @@ namespace RyazanSpace.Domain.Auth.Services
         /// Регистрация пользователя в системе
         /// </summary>
         /// <param name="model"><see cref="RegRequestDTO"/> - модель первичных данных</param>
-        /// <returns><see cref="UserDTO"/> - модель пользоваетеля</returns>
+        /// <returns><see cref="RegResponseDTO"/> - модель пользоваетеля</returns>
         /// <exception cref="UserAlreadyExistsException"></exception>
-        public async Task<UserDTO> Register(RegRequestDTO model)
+        public async Task<RegResponseDTO> Register(RegRequestDTO model)
         {
         
             if (await _repository.ExistName(model.Name).ConfigureAwait(false))
@@ -27,7 +27,7 @@ namespace RyazanSpace.Domain.Auth.Services
 
             var user = model.MapToEntity();
             var createdUser = await _repository.Add(user).ConfigureAwait(false);
-            return new UserDTO(createdUser);
+            return new RegResponseDTO(createdUser);
         }
         
     }

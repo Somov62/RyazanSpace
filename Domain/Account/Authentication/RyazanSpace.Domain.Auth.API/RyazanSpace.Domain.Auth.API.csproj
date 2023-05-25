@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Services\MailService\RyazanSpace.MailService\RyazanSpace.MailService.csproj" />
+    <ProjectReference Include="..\..\..\..\Services\RyazanSpace.Services.MailService\RyazanSpace.Services.MailService.csproj" />
     <ProjectReference Include="..\RyazanSpace.Domain.Auth.Services\RyazanSpace.Domain.Auth.Services.csproj" />
   </ItemGroup>
 

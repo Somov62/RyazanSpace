@@ -4,7 +4,7 @@ using RyazanSpace.DAL.Client.Repositories.Base;
 using RyazanSpace.DAL.Client.Repositories.Credentials;
 using RyazanSpace.Domain.Auth.Services;
 using RyazanSpace.Interfaces.Repositories;
-using RyazanSpace.MailService;
+using RyazanSpace.Services.MailService;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
@@ -24,8 +24,15 @@ namespace RyazanSpace.Domain.Auth.API
 
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwagger(option =>
+                {
+                    option.RouteTemplate = "api/Authentication/{documentName}/swagger.json";
+                });
+                app.UseSwaggerUI(option =>
+                {
+                    option.SwaggerEndpoint("/api/Authentication/v1/swagger.json", "Auth API");
+                    option.RoutePrefix = "api/Authentication";
+                });
             }
 
             //app.UseHttpsRedirection();

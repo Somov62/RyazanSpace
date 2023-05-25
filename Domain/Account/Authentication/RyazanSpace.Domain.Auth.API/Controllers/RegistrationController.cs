@@ -13,7 +13,7 @@ namespace RyazanSpace.Domain.Auth.API.Controllers
 
 
         [HttpPost("register")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserDTO))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RegResponseDTO))]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> Register([FromBody] RegRequestDTO model)
         {
