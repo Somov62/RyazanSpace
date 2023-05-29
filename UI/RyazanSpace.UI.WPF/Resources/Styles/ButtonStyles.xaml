@@ -50,7 +50,7 @@
         <Setter Property="Background" Value="{DynamicResource WindowNavBtnBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
         <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="2" />
+        <Setter Property="Padding" Value="4" />
         <Setter Property="Margin" Value="0,0,0,10" />
         <Setter Property="Template">
             <Setter.Value>
