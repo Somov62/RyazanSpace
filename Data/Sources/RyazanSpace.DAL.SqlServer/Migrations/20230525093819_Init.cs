@@ -43,7 +43,6 @@ namespace RyazanSpace.DAL.SqlServer.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                    table.CheckConstraint("Avatar", "AvatarId = 1");
                     table.ForeignKey(
                         name: "FK_Users_CloudResources_AvatarId",
                         column: x => x.AvatarId,

@@ -76,9 +76,12 @@ namespace RyazanSpace.DAL.API
 
 
             builder.Services.AddDbContext<RyazanSpaceDbContext>(
-                opt => opt
-                    .UseSqlServer(builder.Configuration.GetConnectionString("Data"),
-                    o => o.MigrationsAssembly("RyazanSpace.DAL.SqlServer")));
+                opt =>
+                {
+                    opt.UseSqlServer(builder.Configuration.GetConnectionString("Data"),
+                        o => o.MigrationsAssembly("RyazanSpace.DAL.SqlServer"));
+                    opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                });
 
             builder.Services.AddTransient<RyazanSpaceDbInitializer>();
 

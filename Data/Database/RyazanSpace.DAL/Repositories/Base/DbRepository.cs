@@ -110,7 +110,10 @@ namespace RyazanSpace.DAL.Repositories.Base
 
             _db.Update(item);
             if (AutoSaveChanges)
+            {
                 await SaveChanges(cancel).ConfigureAwait(false);
+                _db.Entry(item).Reload();
+            }
 
             return item;
         }

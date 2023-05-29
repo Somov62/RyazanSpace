@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace RyazanSpace.UI.WPF.Views.Main
+namespace RyazanSpace.UI.WPF.Views.Profile
 {
     /// <summary>
-    /// Логика взаимодействия для MenuPage.xaml
+    /// Логика взаимодействия для ProfilePage.xaml
     /// </summary>
-    public partial class MenuPage : Page
+    public partial class ProfilePage : Page
     {
-        public MenuPage()
+        public ProfilePage()
         {
             InitializeComponent();
         }

@@ -48,7 +48,7 @@
 
     <Style x:Key="MenuRadioButtonStyle" TargetType="{x:Type RadioButton}">
         <Setter Property="Background" Value="{DynamicResource WindowNavBtnBackground}" />
-        <Setter Property="Foreground" Value="{DynamicResource MainForeground}" />
+        <Setter Property="Foreground" Value="{DynamicResource WindowForeground}" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="2" />
         <Setter Property="Margin" Value="0,0,0,10" />
@@ -69,7 +69,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <fa:FontAwesome
-                                Foreground="{DynamicResource MenuBtnForeground}"
+                                Foreground="{TemplateBinding Foreground}"
                                 FontSize="24"
                                 VerticalAlignment="Center"
                                 Icon="{Binding ContentStringFormat, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
@@ -92,7 +92,7 @@
                         <Trigger Property="IsPressed" Value="true" />
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="Background" Value="{DynamicResource Accent}" />
-                            <Setter Property="Foreground" Value="{DynamicResource WindowNavBtnBackground}" />
+                            <Setter Property="Foreground" Value="{DynamicResource OptionMark.Pressed.Background}" />
                             <Setter Property="FontWeight" Value="SemiBold" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="{x:Null}" />

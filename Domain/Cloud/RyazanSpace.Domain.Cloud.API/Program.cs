@@ -73,7 +73,7 @@ namespace RyazanSpace.Domain.Cloud.API
 
             builder.Services.AddHttpClient<IRepository<CloudResource>, WebRepository<CloudResource>>
                 (configureClient:
-                client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/Resources/"); });
+                client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/Resource/"); });
 
             builder.Services.AddHttpClient<ICloud, YandexCloudProvider>();
 

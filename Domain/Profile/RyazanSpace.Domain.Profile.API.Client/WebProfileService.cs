@@ -91,7 +91,7 @@ namespace RyazanSpace.Domain.Profile.API.Client
            string token,
            CancellationToken cancel = default)
         {
-            var response = await HttpClient.PostAsync($"status?imageId={status}&token={token}", null, cancel).ConfigureAwait(false);
+            var response = await HttpClient.PostAsync($"status?status={status}&token={token}", null, cancel).ConfigureAwait(false);
             if (response.IsSuccessStatusCode)
                 return;
 

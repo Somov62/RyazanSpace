@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RyazanSpace.Domain.Auth.API.Client;
+using RyazanSpace.Domain.Cloud.API.Client;
+using RyazanSpace.Domain.Profile.API.Client;
 using RyazanSpace.UI.WPF.Services.MessageBoxes;
 
 namespace RyazanSpace.UI.WPF.Services.Locator
@@ -10,9 +12,12 @@ namespace RyazanSpace.UI.WPF.Services.Locator
         public static ServiceLocator Instanse => _instance ??= new ServiceLocator();
 
 
-        public NavigationService Navigation => App.Services.GetRequiredService<NavigationService>();
+        public WindowNavigationService WindowNavigation => App.Services.GetRequiredService<WindowNavigationService>();
+        public PageNavigationService PageNavigation => App.Services.GetRequiredService<PageNavigationService>();
         public WebExceptionsHandler ExceptionHandler => App.Services.GetRequiredService<WebExceptionsHandler>();
+        public WebProfileService Profile => App.Services.GetRequiredService<WebProfileService>();
         public SettingsService Settings => App.Services.GetRequiredService<SettingsService>();
+        public WebCloudService Cloud => App.Services.GetRequiredService<WebCloudService>();
         public ThemeService Theme => App.Services.GetRequiredService<ThemeService>();
         public MboxService Mbox => App.Services.GetRequiredService<MboxService>();
 

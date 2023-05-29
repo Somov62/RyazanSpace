@@ -23,7 +23,7 @@ namespace RyazanSpace.Services.YandexCloud
             HttpRequestMessage getUploadLinkRequestMsg = new();
             getUploadLinkRequestMsg.Method = HttpMethod.Get;
             getUploadLinkRequestMsg.Headers.Add("Authorization", _authHeaderContent);
-            getUploadLinkRequestMsg.RequestUri = new Uri("resources/upload?path=" + pathToFile);
+            getUploadLinkRequestMsg.RequestUri = new Uri("resources/upload?path=" + pathToFile, UriKind.Relative);
 
             var getUploadLinkResponse = await _client.SendAsync(getUploadLinkRequestMsg, cancel).ConfigureAwait(false);
             var uploadLink = await getUploadLinkResponse
@@ -48,7 +48,7 @@ namespace RyazanSpace.Services.YandexCloud
             HttpRequestMessage getDownloadLinkRequestMsg = new();
             getDownloadLinkRequestMsg.Method = HttpMethod.Get;
             getDownloadLinkRequestMsg.Headers.Add("Authorization", _authHeaderContent);
-            getDownloadLinkRequestMsg.RequestUri = new Uri("resources/download?path=" + pathToFile);
+            getDownloadLinkRequestMsg.RequestUri = new Uri("resources/download?path=" + pathToFile, UriKind.Relative);
 
             var downloadLinkResponse = await _client.SendAsync(getDownloadLinkRequestMsg, cancel).ConfigureAwait(false);
             var downloadLink = await downloadLinkResponse

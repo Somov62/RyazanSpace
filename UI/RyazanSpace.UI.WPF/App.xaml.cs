@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RyazanSpace.Domain.Auth.API.Client;
+using RyazanSpace.Domain.Cloud.API.Client;
+using RyazanSpace.Domain.Profile.API.Client;
 using RyazanSpace.UI.WPF.Services;
 using RyazanSpace.UI.WPF.Services.Locator;
 using RyazanSpace.UI.WPF.Services.MessageBoxes;
@@ -51,8 +53,9 @@ namespace RyazanSpace.UI.WPF
 
         public static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
         {
+            services.AddSingleton<WindowNavigationService>();
+            services.AddSingleton<PageNavigationService>();
             services.AddTransient<WebExceptionsHandler>();
-            services.AddSingleton<NavigationService>();
             services.AddSingleton<SettingsService>();
             services.AddTransient<ThemeService>();
             services.AddTransient<MboxService>();
@@ -72,6 +75,14 @@ namespace RyazanSpace.UI.WPF
             services.AddHttpClient<WebResetPasswordService>
                   (configureClient:
                   client => { client.BaseAddress = new Uri($"{host.Configuration["AuthAPI"]}/ResetPassword/"); });
+
+            services.AddHttpClient<WebProfileService>
+                  (configureClient:
+                  client => { client.BaseAddress = new Uri($"{host.Configuration["ProfileAPI"]}/Profiles/"); });
+            
+            services.AddHttpClient<WebCloudService>
+                  (configureClient:
+                  client => { client.BaseAddress = new Uri($"{host.Configuration["CloudAPI"]}/Resources/"); });
         }
     }
 }

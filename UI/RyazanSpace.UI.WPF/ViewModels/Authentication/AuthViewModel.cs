@@ -15,14 +15,14 @@ namespace RyazanSpace.UI.WPF.ViewModels.Authentication
 
         private RelayCommand _toResetPasswordCommand;
         public RelayCommand ToResetPasswordCommand => _toResetPasswordCommand ??=
-            new RelayCommand((v) => Locator.Navigation.SetView(_resetPasswordPage ??= new()));
+            new RelayCommand((v) => Locator.WindowNavigation.SetView(_resetPasswordPage ??= new()));
 
 
         private RegistrationViewModel _registrationPage;
 
         private RelayCommand _toRegistrationCommand;
         public RelayCommand ToRegistrationCommand => _toRegistrationCommand ??=
-            new RelayCommand((v) => Locator.Navigation.SetView(_registrationPage ??= new()));
+            new RelayCommand((v) => Locator.WindowNavigation.SetView(_registrationPage ??= new()));
 
         private RelayCommand _loginCommand;
         public RelayCommand LoginCommand => _loginCommand ??= new RelayCommand((v) => Login());
@@ -53,7 +53,7 @@ namespace RyazanSpace.UI.WPF.ViewModels.Authentication
                 var token = await Locator.AuthService.Login(new AuthRequestDTO(Email, hash));
                 Locator.Settings.Configuration.Token = token.Token;
                 Locator.Settings.Configuration.DateExpire = token.DateExpired;
-                Locator.Navigation.SetView(new MenuViewModel());
+                Locator.WindowNavigation.SetView(new MainPageModel());
             }
             catch (Exception ex) { Locator.ExceptionHandler.Handle(ex); }
 

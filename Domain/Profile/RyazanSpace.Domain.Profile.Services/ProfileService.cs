@@ -70,6 +70,7 @@ namespace RyazanSpace.Domain.Profile.Services
                 throw new NotFoundException("Фото не найдено. Убедитесь в верном формате изображения");
 
             user.Avatar = resource;
+            await _userRepository.Update(user).ConfigureAwait(false);
             return new CloudResourceDTO(resource);
         }
 

@@ -110,6 +110,14 @@
                             Height="25"
                             IsHitTestVisible="False" Source="pack://application:,,,/Resources/Pictures/Logo/linelogo.png" />
 
+                        <Button>
+                            <Button.Content>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text=""/>
+                                </StackPanel>
+                            </Button.Content>
+                        </Button>
+                        
                         <Border
                             Height="30"
                             Margin="10,-5"

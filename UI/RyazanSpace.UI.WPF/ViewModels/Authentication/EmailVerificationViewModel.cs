@@ -32,21 +32,27 @@ namespace RyazanSpace.UI.WPF.ViewModels.Authentication
             _sessionId = await Locator.EmailVerificationService.CreateSession(_userId);
         }
 
-        public int Code { get; set; }
+        public int? Code { get; set; }
 
         public async Task ConfirmSession()
         {
+            if (Code == null)
+            {
+                Locator.Mbox.ShowInfo("Укажите код!");
+                return;
+            }
+
             var service = Locator.EmailVerificationService;
             bool result = false;
 
             try
             {
-                result = await service.ConfirmSession(new EmailVerificationRequestDTO(_sessionId, Code));
+                result = await service.ConfirmSession(new EmailVerificationRequestDTO(_sessionId, Code.Value));
             }
             catch (Exception ex) { Locator.ExceptionHandler.Handle(ex); }
 
             if (result)
-                Locator.Navigation.SetView(new AuthViewModel());
+                Locator.WindowNavigation.SetView(new AuthViewModel());
             else
                 Locator.Mbox.ShowInfo("Код неверен");
         }

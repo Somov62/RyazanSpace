@@ -61,6 +61,7 @@
             <c:CustomTextBox
                 Text="{Binding Code}"
                 Margin="0,15,0,10"
+                PreviewTextInput="Code_PreviewTextInput"
                 CornerRadius="10" PlaceHolder="Код" />
 
             <Button

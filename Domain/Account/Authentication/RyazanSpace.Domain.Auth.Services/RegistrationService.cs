@@ -26,6 +26,7 @@ namespace RyazanSpace.Domain.Auth.Services
                 throw new UserAlreadyExistsException("На указанную почту уже зарегистрирован аккаунт");
 
             var user = model.MapToEntity();
+            user.RegDate = DateTimeOffset.Now;
             var createdUser = await _repository.Add(user).ConfigureAwait(false);
             return new RegResponseDTO(createdUser);
         }

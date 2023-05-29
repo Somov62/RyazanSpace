@@ -1,11 +1,14 @@
 ﻿using RyazanSpace.UI.WPF.ViewModels.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace RyazanSpace.UI.WPF.Services
 {
-    internal class NavigationService
+    internal class WindowNavigationService
     {
         private BaseViewModel _currentView = null!;
         private readonly Stack<BaseViewModel> _viewsStack = new();
@@ -27,7 +30,7 @@ namespace RyazanSpace.UI.WPF.Services
             CurrentView = viewModel;
             if (!_viewsStack.Contains(viewModel))
                 _viewsStack.Push(viewModel);
-            
+
             CurrentView?.OnAppearing();
         }
 

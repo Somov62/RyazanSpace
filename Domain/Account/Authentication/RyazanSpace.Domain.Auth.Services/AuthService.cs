@@ -39,7 +39,7 @@ namespace RyazanSpace.Domain.Auth.Services
             var sessionToken = await _tokenRepository.GetByToken(token);
             if (sessionToken == null || sessionToken.DateExpire < DateTimeOffset.Now)
                 throw new NotFoundException("Сессия не найдена!");
-            return sessionToken.Id;
+            return sessionToken.Owner.Id;
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace RyazanSpace.Domain.Auth.Services
             if (user == null)
                 throw new NotFoundException("Пользователь не найден!");
 
-            if (user.Password != model.Password)
+            if (user.Password.ToUpper() != model.Password.ToUpper())
                 throw new ArgumentException("Пароль неверен!");
 
             if (!user.IsEmailVerified)

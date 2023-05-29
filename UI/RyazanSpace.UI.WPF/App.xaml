@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:authM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Authentication" xmlns:authP="clr-namespace:RyazanSpace.UI.WPF.Views.Authentication"
     xmlns:menuM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Main" xmlns:menuP="clr-namespace:RyazanSpace.UI.WPF.Views.Main"
+    xmlns:profileM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Profile" xmlns:profileP="clr-namespace:RyazanSpace.UI.WPF.Views.Profile"
     StartupUri="Views/Windows/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -31,8 +32,12 @@
             </DataTemplate>
 
 
-            <DataTemplate DataType="{x:Type menuM:MenuViewModel}">
-                <menuP:MenuPage />
+            <DataTemplate DataType="{x:Type menuM:MainPageModel}">
+                <menuP:MainPage />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type profileM:ProfilePageModel}">
+                <profileP:ProfilePage />
             </DataTemplate>
         </ResourceDictionary>
 

@@ -70,7 +70,7 @@ namespace RyazanSpace.Domain.Profile.API
 
             builder.Services.AddHttpClient<WebAuthService>
                 (configureClient:
-                client => { client.BaseAddress = new Uri($"{builder.Configuration["AuhtAPI"]}/Auth/"); });
+                client => { client.BaseAddress = new Uri($"{builder.Configuration["AuthAPI"]}/Auth/"); });
 
             builder.Services.AddHttpClient<WebUserRepository>
                 (configureClient:

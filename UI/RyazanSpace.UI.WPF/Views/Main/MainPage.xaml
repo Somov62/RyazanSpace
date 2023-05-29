@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="RyazanSpace.UI.WPF.Views.Main.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:RyazanSpace.UI.WPF.Views.Main"
+    Title="MainPage"
+    d:DesignHeight="450" d:DesignWidth="800"
+    xml:lang="ru-RU">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Background="{DynamicResource WindowNavBtnBackground}"
+            BorderThickness="2"
+            Margin="20,0"
+            Padding="15"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            CornerRadius="15">
+            <Border.BorderBrush>
+                <SolidColorBrush x:Name="borderColor" Color="{DynamicResource WindowNavBorderBrush}" />
+            </Border.BorderBrush>
+
+
+            <DockPanel>
+                <RadioButton
+                    Command="{Binding ToProfilePageCommand}"
+                    Content="Профиль" ContentStringFormat="Home"
+                    DockPanel.Dock="Top" IsChecked="True"
+                    Style="{DynamicResource MenuRadioButtonStyle}" />
+                <RadioButton
+                    Command="{Binding ToLocationsPageCommand}"
+                    Content="Группы" ContentStringFormat="MapMarker"
+                    DockPanel.Dock="Top"
+                    Style="{DynamicResource MenuRadioButtonStyle}" />
+                <RadioButton
+                    Margin="0"
+                    VerticalAlignment="Bottom"
+                    Content="{DynamicResource Exit}"
+                    ContentStringFormat="PowerOff" DockPanel.Dock="Bottom"
+                    Style="{DynamicResource MenuRadioButtonStyle}" />
+                <RadioButton
+                    VerticalAlignment="Bottom"
+                    Command="{Binding ToSettingsPageCommand}"
+                    Content="{DynamicResource SettingsPageTitle}"
+                    ContentStringFormat="Cog" DockPanel.Dock="Bottom"
+                    Style="{DynamicResource MenuRadioButtonStyle}" />
+            </DockPanel>
+
+        </Border>
+
+        <Frame
+            Grid.Column="1"
+            Content="{Binding CurrentView}"
+            NavigationUIVisibility="Hidden" />
+    </Grid>
+</Page>

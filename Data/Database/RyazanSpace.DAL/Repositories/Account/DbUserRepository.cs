@@ -10,7 +10,7 @@ namespace RyazanSpace.DAL.Repositories.Account
 
         public async Task<bool> ExistEmail(string email, CancellationToken cancel = default)
         {
-            return await Items.AnyAsync(item => item.Email == email, cancel).ConfigureAwait(false);
+            return await Items.AnyAsync(item => item.Email.ToLower() == email.ToLower(), cancel).ConfigureAwait(false);
         }
 
         public async Task<User> GetByEmail(string email, CancellationToken cancel = default)

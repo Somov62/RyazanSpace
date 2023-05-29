@@ -20,10 +20,19 @@ namespace RyazanSpace.DAL
         {
             base.OnModelCreating(model);
 
+            model.Entity<CloudResource>().Property(p => p.Type).HasConversion<int>();
+
+
+            model.Entity<CloudResource>()
+                .HasMany<User>()
+                .WithOne(p => p.Avatar);
+
+
             model.Entity<User>().Navigation(p => p.Avatar).AutoInclude();
             model.Entity<User>().HasIndex(nameof(User.Name)).IsUnique();
             model.Entity<User>().HasIndex(nameof(User.Email)).IsUnique();
-            model.Entity<User>().ToTable(p => p.HasCheckConstraint("Avatar", "AvatarId = 1"));
+            //model.Entity<User>().ToTable(p => p.HasCheckConstraint("Avatar", "AvatarId = 1"));
+
 
             model.Entity<User>()
                 .HasMany<UserToken>()
@@ -52,9 +61,8 @@ namespace RyazanSpace.DAL
 
             model.Entity<ResetPasswordSession>().Navigation(p => p.Owner).AutoInclude();
 
-            model.Entity<CloudResource>().Navigation(p => p.Owner).AutoInclude();
-            model.Entity<CloudResource>().Property(p => p.Type).HasConversion<int>();
-        }
+            //model.Entity<CloudResource>().Navigation(p => p.Owner).AutoInclude();
 
+        }
     }
 }
