@@ -2,7 +2,7 @@
 
 namespace RyazanSpace.Core.DTO
 {
-    public abstract class EntityDTO<T> where T : class, IEntity
+    public abstract class EntityDTO<T> where T : class, IBaseEntity
     {
         public EntityDTO() { }
         public EntityDTO(T entity)

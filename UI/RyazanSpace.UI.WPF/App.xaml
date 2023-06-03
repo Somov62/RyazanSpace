@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:authM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Authentication" xmlns:authP="clr-namespace:RyazanSpace.UI.WPF.Views.Authentication"
+    xmlns:groupM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Groups" xmlns:groupP="clr-namespace:RyazanSpace.UI.WPF.Views.Groups"
     xmlns:menuM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Main" xmlns:menuP="clr-namespace:RyazanSpace.UI.WPF.Views.Main"
     xmlns:profileM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Profile" xmlns:profileP="clr-namespace:RyazanSpace.UI.WPF.Views.Profile"
     StartupUri="Views/Windows/MainWindow.xaml">
@@ -13,6 +14,7 @@
                 <ResourceDictionary Source="Resources/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/TextBoxStyles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/CheckBoxStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/TabControlStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <DataTemplate DataType="{x:Type authM:AuthViewModel}">
@@ -39,6 +41,15 @@
             <DataTemplate DataType="{x:Type profileM:ProfilePageModel}">
                 <profileP:ProfilePage />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type groupM:GroupsViewModel}">
+                <groupP:GroupsPage />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type groupM:GroupViewModel}">
+                <groupP:GroupPage />
+            </DataTemplate>
+
         </ResourceDictionary>
 
     </Application.Resources>

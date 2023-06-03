@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Data\API\RyazanSpace.DAL.Client\RyazanSpace.DAL.Client.csproj" />
+    <ProjectReference Include="..\..\..\RyazanSpace.Domain.Groups.DTO\RyazanSpace.Domain.Groups.DTO.csproj" />
+    <ProjectReference Include="..\..\Account\Authentication\RyazanSpace.Domain.Auth.API.Client\RyazanSpace.Domain.Auth.API.Client.csproj" />
+  </ItemGroup>
+
+</Project>

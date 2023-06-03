@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using RyazanSpace.Domain.Auth.API.Client;
 using RyazanSpace.Domain.Cloud.API.Client;
+using RyazanSpace.Domain.Groups.API.Client;
 using RyazanSpace.Domain.Profile.API.Client;
 using RyazanSpace.UI.WPF.Services;
 using RyazanSpace.UI.WPF.Services.Locator;
@@ -83,6 +84,10 @@ namespace RyazanSpace.UI.WPF
             services.AddHttpClient<WebCloudService>
                   (configureClient:
                   client => { client.BaseAddress = new Uri($"{host.Configuration["CloudAPI"]}/Resources/"); });
+
+            services.AddHttpClient<WebGroupService>
+                 (configureClient:
+                 client => { client.BaseAddress = new Uri($"{host.Configuration["GroupAPI"]}/Groups/"); });
         }
     }
 }

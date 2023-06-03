@@ -41,4 +41,12 @@
     <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="#FF222222" />
     <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC" />
     <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070" />
+
+    <SolidColorBrush x:Key="TabControl.Header.Background" Color="#FF222222" />
+    <SolidColorBrush x:Key="TabControl.Header.Foreground" Color="#FF7C7C7C" />
+    <SolidColorBrush x:Key="TabControl.Header.Foreground.MouseOver" Color="#FFDEE0E3" />
+    <SolidColorBrush x:Key="TabControl.Header.Foreground.Selected" Color="#FFDEE0E3" />
+    <SolidColorBrush x:Key="TabControl.Header.Underline" Color="#FF222222" />
+    <SolidColorBrush x:Key="TabControl.Header.Underline.MouseOver" Color="#FFDC082C" />
+    <SolidColorBrush x:Key="TabControl.Header.Underline.Selected" Color="#FFFCB900" />
 </ResourceDictionary>

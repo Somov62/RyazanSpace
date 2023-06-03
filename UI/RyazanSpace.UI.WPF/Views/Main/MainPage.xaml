@@ -30,26 +30,20 @@
 
             <DockPanel>
                 <RadioButton
-                    Command="{Binding ToProfilePageCommand}"
+                    Command="{Binding ToProfileCommand}"
                     Content="Профиль" ContentStringFormat="Home"
                     DockPanel.Dock="Top" IsChecked="True"
                     Style="{DynamicResource MenuRadioButtonStyle}" />
                 <RadioButton
-                    Command="{Binding ToLocationsPageCommand}"
-                    Content="Группы" ContentStringFormat="MapMarker"
+                    Command="{Binding ToGroupsCommand}"
+                    Content="Группы" ContentStringFormat="Group"
                     DockPanel.Dock="Top"
                     Style="{DynamicResource MenuRadioButtonStyle}" />
                 <RadioButton
-                    Margin="0"
                     VerticalAlignment="Bottom"
-                    Content="{DynamicResource Exit}"
-                    ContentStringFormat="PowerOff" DockPanel.Dock="Bottom"
-                    Style="{DynamicResource MenuRadioButtonStyle}" />
-                <RadioButton
-                    VerticalAlignment="Bottom"
-                    Command="{Binding ToSettingsPageCommand}"
-                    Content="{DynamicResource SettingsPageTitle}"
-                    ContentStringFormat="Cog" DockPanel.Dock="Bottom"
+                    Command="{Binding ShutdownCommand}"
+                    Content="Выход" ContentStringFormat="PowerOff"
+                    DockPanel.Dock="Bottom"
                     Style="{DynamicResource MenuRadioButtonStyle}" />
             </DockPanel>
 

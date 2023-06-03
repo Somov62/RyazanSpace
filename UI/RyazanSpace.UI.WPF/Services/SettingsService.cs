@@ -58,8 +58,8 @@ namespace RyazanSpace.UI.WPF.Services
 
         public string AuthAPI { get; set; }
         public string ProfileAPI { get; set; }
-
         public string CloudAPI { get; set; }
+        public string GroupAPI { get; set; }
 
         public bool RememberCredintials { get; set; }
     }

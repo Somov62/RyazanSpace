@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\RyazanSpace.Core\RyazanSpace.Core.csproj" />
     <ProjectReference Include="..\RyazanSpace.DAL.Entities\RyazanSpace.DAL.Entities.csproj" />
   </ItemGroup>
 

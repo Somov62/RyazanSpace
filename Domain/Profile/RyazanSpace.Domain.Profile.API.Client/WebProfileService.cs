@@ -1,5 +1,7 @@
 ﻿using RyazanSpace.Core.API;
+using RyazanSpace.Core.Exceptions;
 using RyazanSpace.Domain.Profile.DTO;
+using System.Net;
 using System.Net.Http.Json;
 
 namespace RyazanSpace.Domain.Profile.API.Client
@@ -29,6 +31,11 @@ namespace RyazanSpace.Domain.Profile.API.Client
                      .ReadFromJsonAsync<CloudResourceDTO>(cancellationToken: cancel)
                      .ConfigureAwait(false);
 
+            string message = await response.Content.ReadAsStringAsync(cancel).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                throw new NotFoundException(message);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new UnauthorizedException();
             throw await ThrowWebException(response, cancel).ConfigureAwait(false);
         }
 
@@ -52,6 +59,11 @@ namespace RyazanSpace.Domain.Profile.API.Client
                      .ReadFromJsonAsync<UserInfoDTO>(cancellationToken: cancel)
                      .ConfigureAwait(false);
 
+            string message = await response.Content.ReadAsStringAsync(cancel).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                throw new NotFoundException(message);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new UnauthorizedException();
             throw await ThrowWebException(response, cancel).ConfigureAwait(false);
         }
 
@@ -74,6 +86,11 @@ namespace RyazanSpace.Domain.Profile.API.Client
                      .ReadFromJsonAsync<ProfileDTO>(cancellationToken: cancel)
                      .ConfigureAwait(false);
 
+            string message = await response.Content.ReadAsStringAsync(cancel).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                throw new NotFoundException(message);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new UnauthorizedException();
             throw await ThrowWebException(response, cancel).ConfigureAwait(false);
         }
 
@@ -95,6 +112,11 @@ namespace RyazanSpace.Domain.Profile.API.Client
             if (response.IsSuccessStatusCode)
                 return;
 
+            string message = await response.Content.ReadAsStringAsync(cancel).ConfigureAwait(false);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                throw new NotFoundException(message);
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new UnauthorizedException();
             throw await ThrowWebException(response, cancel).ConfigureAwait(false);
         }
 

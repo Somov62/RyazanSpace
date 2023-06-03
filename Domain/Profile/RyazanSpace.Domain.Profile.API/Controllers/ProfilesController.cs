@@ -23,7 +23,7 @@ namespace RyazanSpace.Domain.Profile.API.Controllers
                 return Ok(await _service.GetUserInfo(userId, token));
             }
             catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (UnauthorizedException ex) { return NotFound(ex.Message); }
+            catch (UnauthorizedException ex) { return Unauthorized(ex.Message); }
         }
 
         [HttpGet("{userId:int}")]
@@ -37,7 +37,7 @@ namespace RyazanSpace.Domain.Profile.API.Controllers
                 return Ok(await _service.GetProfileById(userId, token));
             }
             catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (UnauthorizedException ex) { return NotFound(ex.Message); }
+            catch (UnauthorizedException ex) { return Unauthorized(ex.Message); }
         }
 
 
@@ -52,7 +52,7 @@ namespace RyazanSpace.Domain.Profile.API.Controllers
                 return Ok(await _service.SetAvatar(imageId, token));
             }
             catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (UnauthorizedException ex) { return NotFound(ex.Message); }
+            catch (UnauthorizedException ex) { return Unauthorized(ex.Message); }
         }
 
         [HttpPost("status")]
@@ -67,7 +67,7 @@ namespace RyazanSpace.Domain.Profile.API.Controllers
                 return Ok();
             }
             catch (NotFoundException ex) { return NotFound(ex.Message); }
-            catch (UnauthorizedException ex) { return NotFound(ex.Message); }
+            catch (UnauthorizedException ex) { return Unauthorized(ex.Message); }
         }
     }
 }

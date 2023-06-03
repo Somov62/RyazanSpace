@@ -35,6 +35,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Domain\Account\Authentication\RyazanSpace.Domain.Auth.API.Client\RyazanSpace.Domain.Auth.API.Client.csproj" />
     <ProjectReference Include="..\..\Domain\Cloud\RyazanSpace.Domain.Cloud.API.Client\RyazanSpace.Domain.Cloud.API.Client.csproj" />
+    <ProjectReference Include="..\..\Domain\Groups\RyazanSpace.Domain.Groups.API.Client\RyazanSpace.Domain.Groups.API.Client.csproj" />
     <ProjectReference Include="..\..\Domain\Profile\RyazanSpace.Domain.Profile.API.Client\RyazanSpace.Domain.Profile.API.Client.csproj" />
   </ItemGroup>
 

@@ -75,19 +75,26 @@ namespace RyazanSpace.UI.WPF.ViewModels.Profile
 
         private async Task SetAvatar()
         {
-            var token = Locator.Settings.Configuration.Token;
-
-            OpenFileDialog d = new OpenFileDialog();
-            d.Filter = "PNG|*.png|JPG|*.jpg";
-            d.Multiselect = false;
+            OpenFileDialog d = new()
+            {
+                Filter = "PNG|*.png|JPG|*.jpg",
+                Multiselect = false
+            };
             if (d.ShowDialog() != true) return;
+
             var bytes = File.ReadAllBytes(d.FileName);
+            var token = Locator.Settings.Configuration.Token;
 
             try
             {
+                //Загружаем фото на сервер
                 Domain.Cloud.DTO.CloudResourceDTO response =
                     await Locator.Cloud.Upload(new UploadRequestDTO(bytes, CloudResourceType.Image), token);
+
+                //Указываем сохраненное фото в качестве аватарки
                 await Locator.Profile.SetAvatar(response.Id, token);
+
+                //Обновляем интерфейс
                 Profile.Avatar.DownloadLink = response.DownloadLink;
                 OnPropertyChanged("Profile");
             }
@@ -102,7 +109,10 @@ namespace RyazanSpace.UI.WPF.ViewModels.Profile
             var token = Locator.Settings.Configuration.Token;
             try
             {
+                //Запрос на сервер
                 await Locator.Profile.SetStatus(status, token);
+                
+                //Обновляем интерфейс
                 Profile.Status = status;
                 OnPropertyChanged("Profile");
             }

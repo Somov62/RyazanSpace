@@ -4,6 +4,7 @@ using RyazanSpace.DAL.API.Data;
 using RyazanSpace.DAL.Repositories.Account;
 using RyazanSpace.DAL.Repositories.Base;
 using RyazanSpace.DAL.Repositories.Credentials;
+using RyazanSpace.DAL.Repositories.Groups;
 using RyazanSpace.Interfaces.Repositories;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -95,6 +96,8 @@ namespace RyazanSpace.DAL.API
             builder.Services.AddScoped(typeof(INamedRepository<>), typeof(DbNamedRepository<>));
             builder.Services.AddScoped(typeof(DbUserRepository));
             builder.Services.AddScoped(typeof(DbUserTokenRepository));
+            builder.Services.AddScoped(typeof(DbGroupRepository));
+            builder.Services.AddScoped(typeof(DbGroupSubscribeRepository));
         }
     }
 }

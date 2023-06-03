@@ -79,9 +79,9 @@
                     <Button
                         FontSize="15"
                         Margin="15,10"
+                        Padding="60,0"
                         Command="{Binding LogOutCommand}"
                         Content="Выйти"
-                        Padding="60, 0"
                         Style="{DynamicResource DefaultButtonStyle}" />
                 </StackPanel>
             </Grid>

@@ -24,7 +24,6 @@
         </Style>
     </Window.Resources>
     <Border
-        
         Background="{DynamicResource WindowBackground}"
         Margin="10"
         CornerRadius="20">
@@ -56,8 +55,7 @@
                                 FontSize="{Binding FontSize, ElementName=btnResize}"
                                 Click="ChangeThemeButton_Click"
                                 Style="{StaticResource WindowNavButtonStyle}">
-                                <fa:FontAwesome Icon="MoonOutline">
-                                </fa:FontAwesome>
+                                <fa:FontAwesome Icon="MoonOutline" />
                             </Button>
                             <Button
                                 FontSize="{Binding FontSize, ElementName=btnResize}"

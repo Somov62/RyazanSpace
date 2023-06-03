@@ -1,6 +1,6 @@
 ﻿namespace RyazanSpace.Interfaces.Entities
 {
-    public interface IEntity
+    public interface IEntity : IBaseEntity
     {
         int Id { get; }
     }
