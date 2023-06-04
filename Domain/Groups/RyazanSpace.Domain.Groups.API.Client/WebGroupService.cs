@@ -160,5 +160,28 @@ namespace RyazanSpace.Domain.Groups.API.Client
                 throw new UnauthorizedException();
             throw await ThrowWebException(response, cancel).ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Возвращает список управляемых пользователем групп
+        /// </summary>
+        /// <param name="token">токен пользователя</param>
+        /// <param name="userId">при значении 0 вернет список управляемых групп владельца токена</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedException"></exception>
+        public async Task<List<GroupDTO>> GetManagedGroups(string token, int userId = 0, CancellationToken cancel = default)
+        {
+            var response = await HttpClient.GetAsync($"managed?token={token}&userId={userId}", cancel).ConfigureAwait(false);
+            if (response.IsSuccessStatusCode)
+                return await response
+                .EnsureSuccessStatusCode()
+                .Content
+                .ReadFromJsonAsync<List<GroupDTO>>(cancellationToken: cancel)
+                .ConfigureAwait(false);
+
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new UnauthorizedException();
+            throw await ThrowWebException(response, cancel).ConfigureAwait(false);
+        }
     }
 }

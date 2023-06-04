@@ -99,10 +99,15 @@ namespace RyazanSpace.Domain.Groups.Services
             if (clientId == null) throw new UnauthorizedException();
 
             if (groupId < 1) throw new NotFoundException("Группа не найдена");
-            var user = await _groupRepository.GetById(groupId, cancel).ConfigureAwait(false);
-            if (user == null) throw new NotFoundException("Группа не найдена");
+            var group = await _groupRepository.GetById(groupId, cancel).ConfigureAwait(false);
+            if (group == null) throw new NotFoundException("Группа не найдена");
 
-            return new GroupDTO(user);
+            var dto = new GroupDTO(group);
+            dto.IsSubscibed = await _subcribeRepository.Exist(group.Id, clientId.Value, cancel).ConfigureAwait(false);
+            dto.IsOwner = group.OwnerId == clientId.Value;
+            dto.SubsCount = await _subcribeRepository.GetCountGroupSubscribers(group.Id, cancel).ConfigureAwait(false);
+
+            return dto;
         }
 
 
@@ -158,6 +163,7 @@ namespace RyazanSpace.Domain.Groups.Services
             {
                 var dto = new GroupDTO(item);
                 dto.IsSubscibed = await _subcribeRepository.Exist(item.Id, clientId.Value, cancel).ConfigureAwait(false);
+                dto.IsOwner = item.OwnerId == clientId.Value;
                 dto.SubsCount = await _subcribeRepository.GetCountGroupSubscribers(item.Id, cancel).ConfigureAwait(false);
                 dtos.Add(dto);
             }
@@ -168,9 +174,36 @@ namespace RyazanSpace.Domain.Groups.Services
                 TotalCount = page.TotalCount,
                 Items = dtos
             };
-
-
             return pageDTO;
         }
+
+        /// <summary>
+        /// Возвращает список управляемых пользователем групп
+        /// </summary>
+        /// <param name="token">токен пользователя</param>
+        /// <param name="userId">при значении 0 вернет список управляемых групп владельца токена</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedException"></exception>
+        public async Task<List<GroupDTO>> GetManagedGroups(string token, int userId = 0, CancellationToken cancel = default)
+        {
+            var clientId = await _authService.TryGetUserByToken(token, cancel).ConfigureAwait(false);
+            if (clientId == null) throw new UnauthorizedException();
+
+            if (userId < 1) userId = clientId.Value;
+            var entities = await _groupRepository.GetManagedGroups(userId, cancel).ConfigureAwait(false);
+
+            var dtos = new List<GroupDTO>();
+            foreach (var item in entities)
+            {
+                var dto = new GroupDTO(item);
+                dto.IsSubscibed = await _subcribeRepository.Exist(item.Id, clientId.Value, cancel).ConfigureAwait(false);
+                dto.IsOwner = item.OwnerId == clientId.Value;
+                dto.SubsCount = await _subcribeRepository.GetCountGroupSubscribers(item.Id, cancel).ConfigureAwait(false);
+                dtos.Add(dto);
+            }
+            return dtos;
+        }
+
     }
 }

@@ -24,7 +24,7 @@ namespace RyazanSpace.UI.WPF.ViewModels.Groups
 
         private RelayCommand _OpenGroupCommand;
         public RelayCommand OpenGroupCommand => _OpenGroupCommand ??=
-            new RelayCommand(async (v) =>
+            new RelayCommand((v) =>
             {
                 Locator.PageNavigation.SetPage(new GroupViewModel(v as GroupDTO));
             });
@@ -32,7 +32,6 @@ namespace RyazanSpace.UI.WPF.ViewModels.Groups
         public GroupsViewModel()
         {
             _groupService = Locator.Groups;
-            LoadNextPageCommand.Execute(null);
         }
 
         public ObservableCollection<GroupDTO> Groups { get; set; } = new ObservableCollection<GroupDTO>();
@@ -60,6 +59,28 @@ namespace RyazanSpace.UI.WPF.ViewModels.Groups
             {
                 Groups.Add(item);
             }
+        }
+
+        public override async void OnAppearing()
+        {
+            base.OnAppearing();
+            //Обновление данных
+
+            //Обновление списка всех групп
+            _actualPage = new Page<GroupDTO>() { PageSize = 15, PageIndex = -1 }; 
+            Groups = new ObservableCollection<GroupDTO>();
+            LoadNextPageCommand.Execute(null);
+            OnPropertyChanged(nameof(Groups));
+
+            var token = Locator.Settings.Configuration.Token;
+
+            //Обновление списка подписок
+            SubscribedGroups = new ObservableCollection<GroupDTO>(await Locator.Subs.GetSubscribedGroups(token));
+            OnPropertyChanged(nameof(SubscribedGroups));
+
+            //Обновление списка управляемых сообществ
+            ManagedGroups = new ObservableCollection<GroupDTO>(await Locator.Groups.GetManagedGroups(token));
+            OnPropertyChanged(nameof(ManagedGroups));
         }
     }
 }

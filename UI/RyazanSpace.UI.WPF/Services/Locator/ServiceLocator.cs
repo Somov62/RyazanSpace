@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RyazanSpace.DAL.Entities.Groups;
 using RyazanSpace.Domain.Auth.API.Client;
 using RyazanSpace.Domain.Cloud.API.Client;
 using RyazanSpace.Domain.Groups.API.Client;
@@ -18,6 +17,7 @@ namespace RyazanSpace.UI.WPF.Services.Locator
         public PageNavigationService PageNavigation => App.Services.GetRequiredService<PageNavigationService>();
         public WebExceptionsHandler ExceptionHandler => App.Services.GetRequiredService<WebExceptionsHandler>();
         public WebProfileService Profile => App.Services.GetRequiredService<WebProfileService>();
+        public WebSubscribeService Subs => App.Services.GetRequiredService<WebSubscribeService>();
         public SettingsService Settings => App.Services.GetRequiredService<SettingsService>();
         public WebGroupService Groups => App.Services.GetRequiredService<WebGroupService>();
         public WebCloudService Cloud => App.Services.GetRequiredService<WebCloudService>();

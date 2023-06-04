@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c="clr-namespace:RyazanSpace.UI.WPF.Resources.Controls" xmlns:fa="http://schemas.fontawesome.io/icons/"
     xmlns:local="clr-namespace:RyazanSpace.UI.WPF.Views.Groups"
     Title="GroupsPage"
     d:DesignHeight="450" d:DesignWidth="800"
@@ -78,9 +79,163 @@
 
             </TabItem>
 
-            <TabItem Header="Подписки" />
-            <TabItem Header="Управляемые" />
-        </TabControl>
+            <TabItem Header="Подписки">
+                <ListView
+                    Name="listSubscribedGroups"
+                    ItemsSource="{Binding SubscribedGroups}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    HorizontalContentAlignment="Stretch"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Border
+                                    BorderThickness="3"
+                                    Width="120" Height="120"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    BorderBrush="{DynamicResource Accent}"
+                                    CornerRadius="100" Cursor="Hand">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding Logo.DownloadLink}" />
+                                    </Border.Background>
+                                </Border>
 
+                                <TextBlock
+                                    Text="{Binding Name}"
+                                    Foreground="{DynamicResource WindowNavBtnForeground}"
+                                    FontSize="20"
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center" />
+                                <TextBlock
+                                    Text="{Binding SubsCount, StringFormat='\{0} подписчиков'}"
+                                    Foreground="{DynamicResource WindowNavBtnForeground}"
+                                    FontSize="20"
+                                    Margin="0,5"
+                                    HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+
+                                        <Border
+                                            Background="{DynamicResource WindowNavBtnBackground}"
+                                            Margin="0,0,16,16"
+                                            Padding="15,20"
+                                            CornerRadius="15">
+                                            <ContentPresenter />
+                                        </Border>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+
+            </TabItem>
+
+            <TabItem Header="Управляемые">
+                <ListView
+                    Name="listManagedGroups"
+                    ItemsSource="{Binding ManagedGroups}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    HorizontalContentAlignment="Stretch"
+                    ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Border
+                                    BorderThickness="3"
+                                    Width="120" Height="120"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    BorderBrush="{DynamicResource Accent}"
+                                    CornerRadius="100" Cursor="Hand">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding Logo.DownloadLink}" />
+                                    </Border.Background>
+                                </Border>
+
+                                <TextBlock
+                                    Text="{Binding Name}"
+                                    Foreground="{DynamicResource WindowNavBtnForeground}"
+                                    FontSize="20"
+                                    Margin="0,15,0,0"
+                                    HorizontalAlignment="Center" />
+                                <TextBlock
+                                    Text="{Binding SubsCount, StringFormat='\{0} подписчиков'}"
+                                    Foreground="{DynamicResource WindowNavBtnForeground}"
+                                    FontSize="20"
+                                    Margin="0,5"
+                                    HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+
+                                        <Border
+                                            Background="{DynamicResource WindowNavBtnBackground}"
+                                            Margin="0,0,16,16"
+                                            Padding="15,20"
+                                            CornerRadius="15">
+                                            <ContentPresenter />
+                                        </Border>
+
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+
+            </TabItem>
+        </TabControl>
+        <DockPanel Margin="525,0,20,0" VerticalAlignment="Top">
+            <Button
+                Background="{DynamicResource Accent}"
+                BorderBrush="{DynamicResource Accent}"
+                DockPanel.Dock="Right"
+                Style="{StaticResource DefaultButtonStyle}">
+                <fa:FontAwesome
+                    Foreground="{DynamicResource Primary}"
+                    FontSize="20" FontWeight="Regular"
+                    Icon="Plus" />
+            </Button>
+            <Button
+                Background="{DynamicResource Accent}"
+                Margin="10,0"
+                BorderBrush="{DynamicResource Accent}"
+                DockPanel.Dock="Right"
+                Style="{StaticResource DefaultButtonStyle}">
+                <fa:FontAwesome
+                    Foreground="{DynamicResource Primary}"
+                    FontSize="20" FontWeight="Thin"
+                    Icon="Search" />
+            </Button>
+            <c:CustomTextBox HorizontalAlignment="Stretch" PlaceHolder="Поиск" />
+        </DockPanel>
     </Grid>
 </Page>

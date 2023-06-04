@@ -88,5 +88,17 @@ namespace RyazanSpace.Domain.Groups.API.Controllers
             catch (NotFoundException ex) { return NotFound(ex.Message); }
             catch (UnauthorizedException ex) { return Unauthorized(ex.Message); }
         }
+
+        [HttpGet("managed")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<IPage<GroupDTO>>> GetManagedGroups(string token, int userId = 0)
+        {
+            try
+            {
+                return Ok(await _service.GetManagedGroups(token, userId));
+            }
+            catch (UnauthorizedException ex) { return Unauthorized(ex.Message); }
+        }
     }
 }

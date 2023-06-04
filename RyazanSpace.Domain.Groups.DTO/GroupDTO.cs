@@ -19,6 +19,7 @@ namespace RyazanSpace.Domain.Groups.DTO
         public CloudResourceDTO Logo { get; set; }
 
         public bool IsSubscibed { get; set; }
+        public bool IsOwner { get; set; }
 
         public int SubsCount { get; set; }
 

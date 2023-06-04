@@ -2,6 +2,7 @@
 using RyazanSpace.DAL.Client.Repositories.Groups;
 using RyazanSpace.DAL.Entities.Groups;
 using RyazanSpace.Domain.Auth.API.Client;
+using RyazanSpace.Domain.Groups.DTO;
 
 namespace RyazanSpace.Domain.Groups.Services
 {
@@ -74,6 +75,34 @@ namespace RyazanSpace.Domain.Groups.Services
                 throw new BadRequestException("Пользователь не подписан на группу");
 
             await _subcribeRepository.Delete(entity, cancel).ConfigureAwait(false);
+        }
+
+        /// <summary>
+        /// Возвращает список групп, на которые пользователь подписан
+        /// </summary>
+        /// <param name="token">токен пользователя</param>
+        /// <param name="userId">при значении 0 вернет список подписок владельца токена</param>
+        /// <param name="cancel"></param>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedException"></exception>
+        public async Task<List<GroupDTO>> GetSubscribedGroups(string token, int userId = 0, CancellationToken cancel = default)
+        {
+            var clientId = await _authService.TryGetUserByToken(token, cancel).ConfigureAwait(false);
+            if (clientId == null) throw new UnauthorizedException();
+
+            if (userId < 1) userId = clientId.Value;
+            var entities = await _subcribeRepository.GetUserGroups(userId, cancel).ConfigureAwait(false);
+
+            var dtos = new List<GroupDTO>();
+            foreach (var item in entities)
+            {
+                var dto = new GroupDTO(item);
+                dto.IsSubscibed = true;
+                dto.IsOwner = item.OwnerId == clientId.Value;
+                dto.SubsCount = await _subcribeRepository.GetCountGroupSubscribers(item.Id, cancel).ConfigureAwait(false);
+                dtos.Add(dto);
+            }
+            return dtos;
         }
     }
 }

@@ -13,11 +13,15 @@ namespace RyazanSpace.UI.WPF.ViewModels.Groups
     {
         private RelayCommand _SetDescriptionCommand;
         public RelayCommand SetDescriptionCommand => _SetDescriptionCommand ??=
-            new RelayCommand(async (v) => await SetLogo());
+            new RelayCommand(async (v) => await SetDescription());
 
         private RelayCommand _SetLogoCommand;
         public RelayCommand SetLogoCommand => _SetLogoCommand ??=
-            new RelayCommand(async (v) => await SetDescription());
+            new RelayCommand(async (v) => await SetLogo()); 
+        
+        private RelayCommand _SubscribeCommand;
+        public RelayCommand SubscribeCommand => _SubscribeCommand ??=
+            new RelayCommand(async (v) => await Subscribe());
 
         public GroupViewModel(GroupDTO group)
         {
@@ -68,6 +72,22 @@ namespace RyazanSpace.UI.WPF.ViewModels.Groups
 
                 //Обновляем интерфейс
                 Group.Description = status;
+                OnPropertyChanged(nameof(Group));
+            }
+            catch (Exception ex) { Locator.ExceptionHandler.Handle(ex); }
+        }
+
+        private async Task Subscribe()
+        {
+            var token = Locator.Settings.Configuration.Token;
+            try
+            {
+                if (Group.IsSubscibed) 
+                    await Locator.Subs.Unsubscribe(Group.Id, token);
+                else 
+                    await Locator.Subs.Subscribe(Group.Id, token);
+                Group.IsSubscibed = !Group.IsSubscibed;
+                Group.SubsCount += Group.IsSubscibed ? 1 : -1 ;
                 OnPropertyChanged(nameof(Group));
             }
             catch (Exception ex) { Locator.ExceptionHandler.Handle(ex); }

@@ -71,12 +71,12 @@ namespace RyazanSpace.DAL.Repositories.Base
             return await Items.AsNoTracking().Where(predicate).ToArrayAsync();
         }
 
-        public async Task<T> Add(T item, CancellationToken cancel = default)
+        public virtual async Task<T> Add(T item, CancellationToken cancel = default)
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
 
-            _db.Update(item);
-            //await _db.AddAsync(item).ConfigureAwait(false);
+           // _db.Update(item);
+            await _db.AddAsync(item).ConfigureAwait(false);
             if (AutoSaveChanges)
                 await SaveChanges(cancel).ConfigureAwait(false);
 

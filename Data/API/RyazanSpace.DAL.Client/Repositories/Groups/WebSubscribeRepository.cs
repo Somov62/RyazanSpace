@@ -2,6 +2,7 @@
 using RyazanSpace.DAL.Entities.Groups;
 using System.Net.Http.Json;
 using System.Net;
+using RyazanSpace.DAL.Entities.Account;
 
 namespace RyazanSpace.DAL.Client.Repositories.Groups
 {
@@ -27,23 +28,23 @@ namespace RyazanSpace.DAL.Client.Repositories.Groups
             return response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound;
         }
 
-        public async Task<List<GroupSubscriber>> GetGroupSubscribers(int groupId, CancellationToken cancel = default)
+        public async Task<List<User>> GetGroupSubscribers(int groupId, CancellationToken cancel = default)
         {
             var response = await HttpClient.GetAsync($"{groupId}/subs", cancel).ConfigureAwait(false);
             return await response
                 .EnsureSuccessStatusCode()
                 .Content
-                .ReadFromJsonAsync<List<GroupSubscriber>>(cancellationToken: cancel)
+                .ReadFromJsonAsync<List<User>>(cancellationToken: cancel)
                 .ConfigureAwait(false);
         }
 
-        public async Task<List<GroupSubscriber>> GetUserGroups(int userId, CancellationToken cancel = default)
+        public async Task<List<Group>> GetUserGroups(int userId, CancellationToken cancel = default)
         {
             var response = await HttpClient.GetAsync($"{userId}/groups", cancel).ConfigureAwait(false);
             return await response
                 .EnsureSuccessStatusCode()
                 .Content
-                .ReadFromJsonAsync<List<GroupSubscriber>>(cancellationToken: cancel)
+                .ReadFromJsonAsync<List<Group>>(cancellationToken: cancel)
                 .ConfigureAwait(false);
         }
 

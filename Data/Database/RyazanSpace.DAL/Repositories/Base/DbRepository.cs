@@ -73,6 +73,9 @@ namespace RyazanSpace.DAL.Repositories.Base
         }
 
 
-        
+        public override async Task<T> Add(T item, CancellationToken cancel = default)
+        {
+            return await base.Update(item, cancel);
+        }
     }
 }

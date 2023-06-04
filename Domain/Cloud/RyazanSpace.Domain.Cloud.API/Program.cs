@@ -5,7 +5,7 @@ using RyazanSpace.Domain.Auth.API.Client;
 using RyazanSpace.Domain.Cloud.Services;
 using RyazanSpace.Interfaces.Cloud;
 using RyazanSpace.Interfaces.Repositories;
-using RyazanSpace.Services.YandexCloud;
+using RyazanSpace.Services.ServerCloud.API.Client;
 using System.Text;
 
 namespace RyazanSpace.Domain.Cloud.API
@@ -75,7 +75,7 @@ namespace RyazanSpace.Domain.Cloud.API
                 (configureClient:
                 client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/Resource/"); });
 
-            builder.Services.AddHttpClient<ICloud, YandexCloudProvider>();
+            builder.Services.AddHttpClient<ICloud, WebServerCloudService>();
 
             builder.Services.AddScoped<CloudService>();
 

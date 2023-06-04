@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RyazanSpace.Core.Exceptions;
+using RyazanSpace.Domain.Groups.DTO;
 using RyazanSpace.Domain.Groups.Services;
+using RyazanSpace.Interfaces.Repositories;
 
 namespace RyazanSpace.Domain.Groups.API.Controllers
 {
@@ -41,6 +43,18 @@ namespace RyazanSpace.Domain.Groups.API.Controllers
             catch (NotFoundException ex) { return NotFound(ex.Message); }
             catch (UnauthorizedException ex) { return Unauthorized(ex.Message); }
             catch (BadRequestException ex) { return BadRequest(ex.Message); }
+        }
+
+        [HttpGet("userssubscribe")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<IPage<GroupDTO>>> GetSubscribedGroups(string token, int userId = 0)
+        {
+            try
+            {
+                return Ok(await _service.GetSubscribedGroups(token, userId));
+            }
+            catch (UnauthorizedException ex) { return Unauthorized(ex.Message); }
         }
     }
 }

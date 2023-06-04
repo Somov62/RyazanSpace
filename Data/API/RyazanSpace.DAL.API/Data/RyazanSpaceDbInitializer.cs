@@ -54,15 +54,17 @@ namespace RyazanSpace.DAL.API.Data
         {
             if (_db.Groups.Any()) return;
 
+            var logo = _db.CloudResources.Find(1021);
             var entities = new Group[10];
             for (int i = 0; i < entities.Length; i++)
             {
                 entities[i] = new Group()
                 {
-                    Name = $"group{i}",
-                    OwnerId = 6,
-                    Description = $"description{i}",
+                    Name = $"Группа под номером {i}",
+                    OwnerId = i % 2 == 0 ? 6 : 1,
+                    Description = $"Это группа очень интересная под номером {i}",
                     RegDate = DateTimeOffset.Now
+                    //Logo = logo
                 };
             }
             _db.Groups.AddRange(entities);

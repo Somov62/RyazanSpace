@@ -7,8 +7,6 @@ using RyazanSpace.Domain.Profile.API.Client;
 using RyazanSpace.UI.WPF.Services;
 using RyazanSpace.UI.WPF.Services.Locator;
 using RyazanSpace.UI.WPF.Services.MessageBoxes;
-using RyazanSpace.UI.WPF.ViewModels;
-using RyazanSpace.UI.WPF.Views.Windows;
 using System;
 using System.Data;
 using System.Linq;
@@ -88,6 +86,10 @@ namespace RyazanSpace.UI.WPF
             services.AddHttpClient<WebGroupService>
                  (configureClient:
                  client => { client.BaseAddress = new Uri($"{host.Configuration["GroupAPI"]}/Groups/"); });
+
+            services.AddHttpClient<WebSubscribeService>
+                (configureClient:
+                client => { client.BaseAddress = new Uri($"{host.Configuration["GroupAPI"]}/Subscribe/"); });
         }
     }
 }
