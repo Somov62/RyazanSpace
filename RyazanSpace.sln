@@ -79,7 +79,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Groups", "Groups", "{8D5DE5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Domain.Groups.Services", "Domain\Groups\RyazanSpace.Domain.Groups.Services\RyazanSpace.Domain.Groups.Services.csproj", "{B5B439C4-586A-4629-85F0-18503E278BF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Domain.Groups.DTO", "RyazanSpace.Domain.Groups.DTO\RyazanSpace.Domain.Groups.DTO.csproj", "{7E95AD4A-232A-4132-BF89-2C20DD1C20D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Domain.Groups.DTO", "Domain\Groups\RyazanSpace.Domain.Groups.DTO\RyazanSpace.Domain.Groups.DTO.csproj", "{7E95AD4A-232A-4132-BF89-2C20DD1C20D6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Domain.Groups.API", "Domain\Groups\RyazanSpace.Domain.Groups.API\RyazanSpace.Domain.Groups.API.csproj", "{9515B5E3-ED95-424F-A8E7-C2DEB9BB9DE4}"
 EndProject

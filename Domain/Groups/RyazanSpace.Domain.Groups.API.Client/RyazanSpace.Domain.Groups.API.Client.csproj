@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\RyazanSpace.Core\RyazanSpace.Core.csproj" />
     <ProjectReference Include="..\..\..\RyazanSpace.Domain.Groups.DTO\RyazanSpace.Domain.Groups.DTO.csproj" />
+    <ProjectReference Include="..\RyazanSpace.Domain.Groups.DTO\RyazanSpace.Domain.Groups.DTO.csproj" />
   </ItemGroup>
 
 </Project>
