@@ -18,6 +18,7 @@ namespace RyazanSpace.UI.WPF.Resources.Controls
 
         private void Resources_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
+            if (Resources == null) return;
             Images = new ObservableCollection<CloudResourceDTO>(Resources.Where(p => p.Type == CloudResourceType.Image));
             Documents = new ObservableCollection<CloudResourceDTO>(Resources.Where(p => p.Type == CloudResourceType.Document));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Images)));

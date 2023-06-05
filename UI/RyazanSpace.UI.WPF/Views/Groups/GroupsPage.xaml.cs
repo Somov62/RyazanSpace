@@ -1,5 +1,4 @@
 ﻿using RyazanSpace.UI.WPF.ViewModels.Groups;
-using System;
 using System.Windows.Controls;
 
 namespace RyazanSpace.UI.WPF.Views.Groups
@@ -9,9 +8,7 @@ namespace RyazanSpace.UI.WPF.Views.Groups
         public GroupsPage()
         {
             InitializeComponent();
-
         }
-
 
         private void ListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {

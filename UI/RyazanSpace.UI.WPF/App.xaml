@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:authM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Authentication" xmlns:authP="clr-namespace:RyazanSpace.UI.WPF.Views.Authentication"
+    xmlns:feedM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.NewsFeeds" xmlns:feedP="clr-namespace:RyazanSpace.UI.WPF.Views.NewsFeeds"
     xmlns:groupM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Groups" xmlns:groupP="clr-namespace:RyazanSpace.UI.WPF.Views.Groups"
     xmlns:menuM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Main" xmlns:menuP="clr-namespace:RyazanSpace.UI.WPF.Views.Main"
     xmlns:profileM="clr-namespace:RyazanSpace.UI.WPF.ViewModels.Profile" xmlns:profileP="clr-namespace:RyazanSpace.UI.WPF.Views.Profile"
@@ -48,6 +49,10 @@
 
             <DataTemplate DataType="{x:Type groupM:GroupViewModel}">
                 <groupP:GroupPage />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type feedM:NewsFeedViewModel}">
+                <feedP:NewsFeedPage />
             </DataTemplate>
 
         </ResourceDictionary>

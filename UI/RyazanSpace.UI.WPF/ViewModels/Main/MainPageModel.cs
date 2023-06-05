@@ -1,6 +1,7 @@
 ﻿using RyazanSpace.UI.WPF.MVVM;
 using RyazanSpace.UI.WPF.Services.Locator;
 using RyazanSpace.UI.WPF.ViewModels.Groups;
+using RyazanSpace.UI.WPF.ViewModels.NewsFeeds;
 using RyazanSpace.UI.WPF.ViewModels.Profile;
 using System.Windows;
 
@@ -20,6 +21,12 @@ namespace RyazanSpace.UI.WPF.ViewModels.Main
         private RelayCommand _toGroupsCommand;
         public RelayCommand ToGroupsCommand => _toGroupsCommand ??=
             new RelayCommand((v) => Locator.PageNavigation.SetPage(_groupsPage ??= new()));
+
+        private NewsFeedViewModel _newsFeedPage;
+
+        private RelayCommand _toNewsFeedCommand;
+        public RelayCommand ToNewsFeedCommand => _toNewsFeedCommand ??=
+            new RelayCommand((v) => Locator.PageNavigation.SetPage(_newsFeedPage ??= new()));
 
         private RelayCommand _shutdownCommand;
         public RelayCommand ShutdownCommand => _shutdownCommand ??=

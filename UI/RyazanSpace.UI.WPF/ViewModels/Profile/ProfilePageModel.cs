@@ -4,6 +4,7 @@ using RyazanSpace.DAL.Entities.Resources.Base;
 using RyazanSpace.Domain.Cloud.DTO;
 using RyazanSpace.Domain.Profile.DTO;
 using RyazanSpace.UI.WPF.MVVM;
+using RyazanSpace.UI.WPF.ViewModels.Authentication;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -69,6 +70,7 @@ namespace RyazanSpace.UI.WPF.ViewModels.Profile
                 config.DateExpire = default;
                 config.RememberCredintials = true;
                 Locator.WindowNavigation.GoBack();
+                Locator.WindowNavigation.SetView(new AuthViewModel());
             }
             catch (Exception ex) { Locator.ExceptionHandler.Handle(ex); }
 

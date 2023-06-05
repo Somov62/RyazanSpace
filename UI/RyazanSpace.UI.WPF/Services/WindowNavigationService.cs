@@ -36,13 +36,10 @@ namespace RyazanSpace.UI.WPF.Services
 
         public void GoBack()
         {
-            if (_viewsStack.Count < 2)
-            {
-                throw new Exception("You cannot go back when less 2 views in stack");
-            }
             _viewsStack.Pop();
 
-            SetView(_viewsStack.Peek());
+            if (_viewsStack.Count > 0) 
+                SetView(_viewsStack.Peek());
         }
 
 
