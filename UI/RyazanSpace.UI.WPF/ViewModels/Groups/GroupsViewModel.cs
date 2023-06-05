@@ -6,6 +6,7 @@ using RyazanSpace.Interfaces.Repositories;
 using RyazanSpace.UI.WPF.MVVM;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RyazanSpace.UI.WPF.ViewModels.Groups
@@ -18,7 +19,7 @@ namespace RyazanSpace.UI.WPF.ViewModels.Groups
         public RelayCommand LoadNextPageCommand => _loadNextPageCommand ??=
             new RelayCommand(async (v) =>
             {
-            if (_actualPage.PageSize * (_actualPage.PageIndex + 1) > Groups.Count) return;
+                if (_actualPage.PageSize * (_actualPage.PageIndex + 1) > Groups.Count) return;
                 await LoadNextPage();
             });
 
@@ -28,6 +29,29 @@ namespace RyazanSpace.UI.WPF.ViewModels.Groups
             {
                 Locator.PageNavigation.SetPage(new GroupViewModel(v as GroupDTO));
             });
+
+        private RelayCommand _AddGroupCommand;
+        public RelayCommand AddGroupCommand => _AddGroupCommand ??=
+            new RelayCommand((v) => { AddGroup(); });
+
+        private async void AddGroup()
+        {
+            string groupName = string.Empty;
+            if (Locator.Mbox.ShowInput("Придумайте имя для группы", ref groupName) != true) return;
+
+            var token = Locator.Settings.Configuration.Token;
+            CreateGroupDTO dto = new() { Name = groupName };
+            try
+            {
+                //Запрос на сервер
+                int id = await Locator.Groups.CreateGroup(dto, token);
+                var group = await Locator.Groups.GetGroupById(id, token);
+                Groups.Prepend(group);
+                ManagedGroups.Prepend(group);
+                OpenGroupCommand.Execute(group);
+            }
+            catch (Exception ex) { Locator.ExceptionHandler.Handle(ex); }
+        }
 
         public GroupsViewModel()
         {
@@ -67,7 +91,7 @@ namespace RyazanSpace.UI.WPF.ViewModels.Groups
             //Обновление данных
 
             //Обновление списка всех групп
-            _actualPage = new Page<GroupDTO>() { PageSize = 15, PageIndex = -1 }; 
+            _actualPage = new Page<GroupDTO>() { PageSize = 15, PageIndex = -1 };
             Groups = new ObservableCollection<GroupDTO>();
             LoadNextPageCommand.Execute(null);
             OnPropertyChanged(nameof(Groups));

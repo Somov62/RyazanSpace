@@ -34,10 +34,12 @@ namespace RyazanSpace.DAL
             model.Entity<CloudResource>()
                 .HasMany<Group>()
                 .WithOne(p => p.Logo);
-            model.Entity<CloudResource>()
-                .HasMany<Post>()
-                .WithMany(p => p.Resources);
-
+            //model.Entity<CloudResource>()
+            //    .HasMany<Post>()
+            //    .WithMany(p => p.Resources);
+            model.Entity<Post>()
+                .HasMany<CloudResource>(p => p.Resources)
+                .WithMany();
 
             model.Entity<User>().HasIndex(nameof(User.Name)).IsUnique();
             model.Entity<User>().HasIndex(nameof(User.Email)).IsUnique();
@@ -79,6 +81,7 @@ namespace RyazanSpace.DAL
               .OnDelete(DeleteBehavior.Cascade);
 
             model.Entity<Post>().Navigation(p => p.Resources).AutoInclude();
+            model.Entity<Post>().Navigation(p => p.Group).AutoInclude();
 
             model.Entity<UserToken>().Navigation(p => p.Owner).AutoInclude();
             model.Entity<UserToken>().HasIndex(nameof(UserToken.Token)).IsUnique();

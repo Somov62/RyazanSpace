@@ -8,7 +8,7 @@ namespace RyazanSpace.DAL.Repositories.Base
 {
     public class DbBaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
-        private readonly RyazanSpaceDbContext _db;
+        protected readonly RyazanSpaceDbContext _db;
 
         protected DbSet<T> Set { get; }
 
@@ -83,7 +83,7 @@ namespace RyazanSpace.DAL.Repositories.Base
             return item;
         }
 
-        public async Task<T> Update(T item, CancellationToken cancel = default)
+        public virtual async Task<T> Update(T item, CancellationToken cancel = default)
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
 

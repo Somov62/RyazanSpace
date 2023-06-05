@@ -82,6 +82,7 @@ namespace RyazanSpace.DAL.API
                     opt.UseSqlServer(builder.Configuration.GetConnectionString("Data"),
                         o => o.MigrationsAssembly("RyazanSpace.DAL.SqlServer"));
                     opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                    opt.EnableSensitiveDataLogging();
                 });
 
             builder.Services.AddTransient<RyazanSpaceDbInitializer>();
@@ -98,6 +99,7 @@ namespace RyazanSpace.DAL.API
             builder.Services.AddScoped(typeof(DbUserTokenRepository));
             builder.Services.AddScoped(typeof(DbGroupRepository));
             builder.Services.AddScoped(typeof(DbGroupSubscribeRepository));
+            builder.Services.AddScoped(typeof(DbPostRepository));
         }
     }
 }

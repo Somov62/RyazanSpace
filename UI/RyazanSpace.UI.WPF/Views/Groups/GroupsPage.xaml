@@ -217,6 +217,7 @@
             <Button
                 Background="{DynamicResource Accent}"
                 BorderBrush="{DynamicResource Accent}"
+                Command="{Binding AddGroupCommand}"
                 DockPanel.Dock="Right"
                 Style="{StaticResource DefaultButtonStyle}">
                 <fa:FontAwesome

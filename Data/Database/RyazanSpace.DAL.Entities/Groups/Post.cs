@@ -12,7 +12,7 @@ namespace RyazanSpace.DAL.Entities.Groups
 
         public DateTimeOffset CreationTime { get; set; }
 
-        public List<CloudResource> Resources { get; set; }
+        public List<CloudResource> Resources { get; set; } = new List<CloudResource>();
 
     }
 }
