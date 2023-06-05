@@ -28,9 +28,10 @@ namespace RyazanSpace.Domain.Groups.API.Client
             int groupId,
             int pageIndex,
             int pageSize,
+            string token,
             CancellationToken cancel = default)
         {
-            var response = await HttpClient.GetAsync($"group/{groupId}/page[{pageIndex}:{pageSize}]", cancel).ConfigureAwait(false);
+            var response = await HttpClient.GetAsync($"group/{groupId}/page/{pageIndex}/{pageSize}?token={token}", cancel).ConfigureAwait(false);
             if (response.StatusCode == HttpStatusCode.NotFound)
             {
                 return new Page<PostDTO>(

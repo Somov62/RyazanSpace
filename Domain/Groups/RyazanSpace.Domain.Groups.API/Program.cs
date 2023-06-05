@@ -81,7 +81,7 @@ namespace RyazanSpace.Domain.Groups.API
 
             builder.Services.AddHttpClient<WebPostRepository>
                 (configureClient:
-                client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/Posts/"); });
+                client => { client.BaseAddress = new Uri($"{builder.Configuration["DatabaseAPI"]}/Post/"); });
 
             builder.Services.AddHttpClient<IRepository<CloudResource>, WebRepository<CloudResource>>
                 (configureClient:

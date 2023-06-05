@@ -1,7 +1,6 @@
-﻿using RyazanSpace.Core.DTO;
-using RyazanSpace.DAL.Entities.Resources.Base;
+﻿using RyazanSpace.DAL.Entities.Resources.Base;
 
-namespace RyazanSpace.Domain.Profile.DTO
+namespace RyazanSpace.Core.DTO
 {
     public class CloudResourceDTO : EntityDTO<CloudResource>
     {

@@ -1,5 +1,6 @@
 ﻿using RyazanSpace.Core.DTO;
 using RyazanSpace.DAL.Entities.Account;
+using RyazanSpace.DAL.Entities.Resources.Base;
 
 namespace RyazanSpace.Domain.Profile.DTO
 {
@@ -24,7 +25,7 @@ namespace RyazanSpace.Domain.Profile.DTO
             {
                 Id = Id,
                 Name = Name,
-                Avatar = Avatar.MapToEntity(),
+                Avatar = Avatar?.MapToEntity() as CloudResource,
                 RegDate = RegDate,
                 Status = Status
             };
@@ -34,7 +35,7 @@ namespace RyazanSpace.Domain.Profile.DTO
         {
             entity.Id = Id;
             entity.Name = Name;
-            entity.Avatar = Avatar.MapToEntity();
+            entity.Avatar = Avatar?.MapToEntity() as CloudResource;
             entity.RegDate = RegDate;
             entity.Status = Status;
             return entity;

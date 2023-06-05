@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using RyazanSpace.Core.DTO;
 using RyazanSpace.DAL.Entities.Resources.Base;
 using RyazanSpace.Domain.Cloud.DTO;
 using RyazanSpace.Domain.Profile.DTO;
@@ -88,7 +89,7 @@ namespace RyazanSpace.UI.WPF.ViewModels.Profile
             try
             {
                 //Загружаем фото на сервер
-                Domain.Cloud.DTO.CloudResourceDTO response =
+                CloudResourceDTO response =
                     await Locator.Cloud.Upload(new UploadRequestDTO(bytes, CloudResourceType.Image), token);
 
                 //Указываем сохраненное фото в качестве аватарки

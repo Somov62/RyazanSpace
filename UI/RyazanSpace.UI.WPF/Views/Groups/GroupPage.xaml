@@ -4,110 +4,213 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c="clr-namespace:RyazanSpace.UI.WPF.Resources.Controls" xmlns:fa="http://schemas.fontawesome.io/icons/"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:local="clr-namespace:RyazanSpace.UI.WPF.Views.Groups"
     Title="GroupPage"
     d:DesignHeight="450" d:DesignWidth="800"
     xml:lang="ru-RU">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
+        <StackPanel>
 
-        <Border
-            Background="{DynamicResource WindowNavBtnBackground}"
-            Padding="20"
-            CornerRadius="15">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="20" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="150" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+            <Border
+                Background="{DynamicResource WindowNavBtnBackground}"
+                Padding="20"
+                CornerRadius="10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition MinHeight="150" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
 
-                <Border
-                    BorderThickness="3"
-                    Width="120" Height="120"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Top"
-                    BorderBrush="{DynamicResource Accent}"
-                    CornerRadius="100">
-                    <Border.Background>
-                        <ImageBrush ImageSource="{Binding Group.Logo.DownloadLink}" Stretch="UniformToFill" />
-                    </Border.Background>
-                </Border>
+                    <Border
+                        BorderThickness="3"
+                        Width="120" Height="120"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        BorderBrush="{DynamicResource Accent}"
+                        CornerRadius="100">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding Group.Logo.DownloadLink}" Stretch="UniformToFill" />
+                        </Border.Background>
+                    </Border>
 
-                <StackPanel
-                    Grid.Column="2"
-                    TextBlock.FontSize="25"
-                    TextBlock.Foreground="{DynamicResource WindowForeground}">
-                    <TextBlock
-                        Text="{Binding Group.Name}"
-                        Foreground="{DynamicResource WindowForeground}"
-                        FontSize="30" />
-                    <TextBlock Text="{Binding Group.Description}" />
-                    <TextBlock Text="{Binding Group.SubsCount, StringFormat='\{0} подписчиков'}" />
-                    <TextBlock Text="{Binding Group.RegDate, StringFormat='Создана {0:d MMMM yyyy } года'}" />
-                </StackPanel>
+                    <StackPanel
+                        Grid.Column="2"
+                        TextBlock.FontSize="20"
+                        TextBlock.Foreground="{DynamicResource WindowForeground}">
+                        <TextBlock
+                            Text="{Binding Group.Name}"
+                            Foreground="{DynamicResource WindowForeground}"
+                            FontSize="30" />
+                        <TextBlock Text="{Binding Group.Description}" Margin="0,10,0,0" />
+                        <TextBlock Text="{Binding Group.SubsCount, StringFormat='\{0} подписчиков'}" />
+                        <TextBlock Text="{Binding Group.RegDate, StringFormat='Создана {0:d MMMM yyyy } года'}" />
+                    </StackPanel>
 
-                <Button
-                    Grid.Row="1"
-                    FontSize="15"
-                    Margin="10"
-                    VerticalAlignment="Top"
-                    Command="{Binding SetLogoCommand}"
-                    Content="Обновить фото"
-                    Style="{DynamicResource DefaultButtonStyle}">
-                    <i:Interaction.Triggers>
-                        <i:DataTrigger Binding="{Binding Group.IsOwner}" Value="false">
-                            <i:SetDataStoreValueAction PropertyName="Height" Value="0" />
-                            <i:SetDataStoreValueAction PropertyName="Margin" Value="0" />
-                        </i:DataTrigger>
-                    </i:Interaction.Triggers>
-                </Button>
-
-                <StackPanel Grid.Row="1" Grid.Column="3">
-
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-
-                        <Button
-                            FontSize="15"
-                            Margin="0,10"
-                            Command="{Binding SetDescriptionCommand}"
-                            Content="Установить описание"
-                            Style="{DynamicResource DefaultButtonStyle}" />
+                    <Button
+                        Grid.Row="1"
+                        FontSize="15"
+                        Margin="10"
+                        VerticalAlignment="Top"
+                        Command="{Binding SetLogoCommand}"
+                        Content="Обновить фото"
+                        Style="{DynamicResource DefaultButtonStyle}">
                         <i:Interaction.Triggers>
                             <i:DataTrigger Binding="{Binding Group.IsOwner}" Value="false">
                                 <i:SetDataStoreValueAction PropertyName="Height" Value="0" />
                                 <i:SetDataStoreValueAction PropertyName="Margin" Value="0" />
                             </i:DataTrigger>
                         </i:Interaction.Triggers>
-                    </StackPanel>
-                    <Button
-                        FontSize="15"
-                        Margin="0,10"
-                        HorizontalAlignment="Left"
-                        Command="{Binding SubscribeCommand}"
-                        Content="Подписаться"
-                        Style="{DynamicResource DefaultButtonStyle}">
-                        <i:Interaction.Triggers>
-                            <i:DataTrigger Binding="{Binding Group.IsOwner}" Value="true">
-                                <i:SetDataStoreValueAction PropertyName="Height" Value="0" />
-                                <i:SetDataStoreValueAction PropertyName="Margin" Value="0" />
-                            </i:DataTrigger>
-                            <i:DataTrigger Binding="{Binding Group.IsSubscibed}" Value="true">
-                                <i:SetDataStoreValueAction PropertyName="Content" Value="Отписаться" />
-                            </i:DataTrigger>
-                        </i:Interaction.Triggers>
                     </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
 
-    </Grid>
+                    <StackPanel Grid.Row="1" Grid.Column="3">
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+
+                            <Button
+                                FontSize="15"
+                                Margin="0,10"
+                                Command="{Binding SetDescriptionCommand}"
+                                Content="Установить описание"
+                                Style="{DynamicResource DefaultButtonStyle}" />
+                            <i:Interaction.Triggers>
+                                <i:DataTrigger Binding="{Binding Group.IsOwner}" Value="false">
+                                    <i:SetDataStoreValueAction PropertyName="Height" Value="0" />
+                                    <i:SetDataStoreValueAction PropertyName="Margin" Value="0" />
+                                </i:DataTrigger>
+                            </i:Interaction.Triggers>
+                        </StackPanel>
+                        <Button
+                            FontSize="15"
+                            Margin="0,10"
+                            HorizontalAlignment="Left"
+                            Command="{Binding SubscribeCommand}"
+                            Content="Подписаться"
+                            Style="{DynamicResource DefaultButtonStyle}">
+                            <i:Interaction.Triggers>
+                                <i:DataTrigger Binding="{Binding Group.IsOwner}" Value="true">
+                                    <i:SetDataStoreValueAction PropertyName="Height" Value="0" />
+                                    <i:SetDataStoreValueAction PropertyName="Margin" Value="0" />
+                                </i:DataTrigger>
+                                <i:DataTrigger Binding="{Binding Group.IsSubscibed}" Value="true">
+                                    <i:SetDataStoreValueAction PropertyName="Content" Value="Отписаться" />
+                                </i:DataTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border
+                Background="{DynamicResource WindowNavBtnBackground}"
+                Margin="0,17"
+                Padding="20,15"
+                CornerRadius="10">
+                <StackPanel>
+                    <c:CustomTextBox
+                        Text="{Binding NewPost.Text}"
+                        Margin="60,5, 62, 0"
+                        AcceptsReturn="True" PlaceHolder="Напишите новый пост"
+                        TextWrapping="Wrap" />
+
+                    <c:PostResourcesPresenter Resources="{Binding NewPost.Resources}" />
+
+                    <Grid Margin="0,20,0,0">
+                        <Button
+                            Background="{DynamicResource Accent}"
+                            Padding="12,0"
+                            Margin="60, -30, 60, 10"
+                            HorizontalAlignment="Left"
+                            BorderBrush="{DynamicResource Accent}"
+                            Command="{Binding AddPhotoToPostCommand}"
+                            Style="{StaticResource DefaultButtonStyle}">
+                            <fa:FontAwesome
+                                Foreground="{DynamicResource ButtonForeground}"
+                                FontSize="25" FontWeight="Thin"
+                                Icon="Camera" />
+                        </Button>
+                        <Button
+                            FontSize="20"
+                            Margin="0, -30, 62, 10"
+                            Padding="30,10"
+                            HorizontalAlignment="Right"
+                            Command="{Binding PublishPostCommand}"
+                            Content="Опубликовать"
+                            Style="{StaticResource DefaultButtonStyle}" />
+                    </Grid>
+                </StackPanel>
+                <i:Interaction.Triggers>
+                    <i:DataTrigger Binding="{Binding Group.IsOwner}" Value="false">
+                        <i:SetDataStoreValueAction PropertyName="Height" Value="0" />
+                    </i:DataTrigger>
+                </i:Interaction.Triggers>
+            </Border>
+
+
+            <Grid>
+                <ItemsControl
+                    ItemsSource="{Binding Posts}"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    HorizontalContentAlignment="Stretch"
+                    ScrollViewer.ScrollChanged="ListView_ScrollChanged" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Background="{DynamicResource WindowNavBtnBackground}"
+                                Margin="0,0,0,16"
+                                Padding="25,20"
+                                CornerRadius="15">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border
+                                            BorderThickness="3"
+                                            Width="50" Height="50"
+                                            Margin="-5,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Top"
+                                            BorderBrush="{DynamicResource Accent}"
+                                            CornerRadius="100" Cursor="Hand">
+                                            <Border.Background>
+                                                <ImageBrush ImageSource="{Binding Group.Logo.DownloadLink}" />
+                                            </Border.Background>
+                                        </Border>
+
+                                        <StackPanel Margin="20,-2">
+                                            <TextBlock
+                                                Text="{Binding Group.Name}"
+                                                Foreground="{DynamicResource WindowForeground}"
+                                                FontSize="20" />
+                                            <TextBlock
+                                                Text="{Binding CreationTime, StringFormat='d MMMM yyyy в hh:mm'}"
+                                                Foreground="{DynamicResource WindowNavBtnForeground}"
+                                                FontSize="15" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <TextBlock
+                                        Text="{Binding Text}"
+                                        Foreground="{DynamicResource WindowForeground}"
+                                        FontSize="20"
+                                        Margin="0,15"
+                                        TextWrapping="Wrap" />
+                                    <c:PostResourcesPresenter Resources="{Binding Resources}" Margin="-5, -20"/>
+
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+
+            </Grid>
+
+
+        </StackPanel>
+    </ScrollViewer>
 </Page>

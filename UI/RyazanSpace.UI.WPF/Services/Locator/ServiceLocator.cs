@@ -18,6 +18,7 @@ namespace RyazanSpace.UI.WPF.Services.Locator
         public WebExceptionsHandler ExceptionHandler => App.Services.GetRequiredService<WebExceptionsHandler>();
         public WebProfileService Profile => App.Services.GetRequiredService<WebProfileService>();
         public WebSubscribeService Subs => App.Services.GetRequiredService<WebSubscribeService>();
+        public WebPostService Posts => App.Services.GetRequiredService<WebPostService>();
         public SettingsService Settings => App.Services.GetRequiredService<SettingsService>();
         public WebGroupService Groups => App.Services.GetRequiredService<WebGroupService>();
         public WebCloudService Cloud => App.Services.GetRequiredService<WebCloudService>();

@@ -1,4 +1,5 @@
 ﻿using RyazanSpace.Core.API;
+using RyazanSpace.Core.DTO;
 using RyazanSpace.Core.Exceptions;
 using RyazanSpace.Domain.Profile.DTO;
 using System.Net;

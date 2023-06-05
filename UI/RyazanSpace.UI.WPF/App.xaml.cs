@@ -90,6 +90,10 @@ namespace RyazanSpace.UI.WPF
             services.AddHttpClient<WebSubscribeService>
                 (configureClient:
                 client => { client.BaseAddress = new Uri($"{host.Configuration["GroupAPI"]}/Subscribe/"); });
+
+            services.AddHttpClient<WebPostService>
+                (configureClient:
+                client => { client.BaseAddress = new Uri($"{host.Configuration["GroupAPI"]}/Posts/"); });
         }
     }
 }

@@ -39,6 +39,9 @@
                                     Foreground="{DynamicResource WindowNavBtnForeground}"
                                     FontSize="20"
                                     Margin="0,15,0,0"
+                                    TextWrapping="Wrap"
+                                    MaxWidth="200"
+                                    TextAlignment="Center"
                                     HorizontalAlignment="Center" />
                                 <TextBlock
                                     Text="{Binding SubsCount, StringFormat='\{0} подписчиков'}"
@@ -106,7 +109,9 @@
                                     Text="{Binding Name}"
                                     Foreground="{DynamicResource WindowNavBtnForeground}"
                                     FontSize="20"
-                                    Margin="0,15,0,0"
+                                    TextWrapping="Wrap"
+                                   MaxWidth="200"
+                                    TextAlignment="Center" Margin="0,15,0,0"
                                     HorizontalAlignment="Center" />
                                 <TextBlock
                                     Text="{Binding SubsCount, StringFormat='\{0} подписчиков'}"
@@ -173,6 +178,9 @@
                                     Text="{Binding Name}"
                                     Foreground="{DynamicResource WindowNavBtnForeground}"
                                     FontSize="20"
+                                    TextWrapping="Wrap"
+                                    MaxWidth="200"
+                                    TextAlignment="Center"
                                     Margin="0,15,0,0"
                                     HorizontalAlignment="Center" />
                                 <TextBlock

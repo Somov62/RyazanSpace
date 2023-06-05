@@ -1,5 +1,6 @@
 ﻿using RyazanSpace.Core.DTO;
 using RyazanSpace.DAL.Entities.Groups;
+using RyazanSpace.DAL.Entities.Resources.Base;
 
 namespace RyazanSpace.Domain.Groups.DTO
 {
@@ -19,7 +20,7 @@ namespace RyazanSpace.Domain.Groups.DTO
             {
                 Text = Text,
                 GroupId = GroupId,
-                Resources = Resources.ConvertAll(p => p.MapToEntity())
+                Resources = Resources?.ConvertAll(p => p.MapToEntity() as CloudResource)
             };
         }
 
@@ -27,7 +28,7 @@ namespace RyazanSpace.Domain.Groups.DTO
         {
             entity.Text = Text;
             entity.GroupId = GroupId;
-            entity.Resources = Resources.ConvertAll(p => p.MapToEntity());
+            entity.Resources = Resources?.ConvertAll(p => p.MapToEntity() as CloudResource);
             return entity;
         }
 

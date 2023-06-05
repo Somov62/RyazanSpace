@@ -4,7 +4,6 @@ using RyazanSpace.DAL.Entities.Groups;
 using RyazanSpace.DAL.Entities.Resources.Base;
 using RyazanSpace.DAL.Repositories.Base;
 using RyazanSpace.Interfaces.Repositories;
-using System.Diagnostics;
 
 namespace RyazanSpace.DAL.Repositories.Groups
 {
@@ -38,45 +37,28 @@ namespace RyazanSpace.DAL.Repositories.Groups
         {
             if (item is null) throw new ArgumentNullException(nameof(item));
 
-            if (item.Group != null)
-            {
-                item.GroupId = item.Group.Id;
-                item.Group = null;
-            }
-
             if (item.Resources != null)
             {
                 var res = item.Resources;
                 for (int i = 0; i < res.Count; i++)
                 {
-                    var entity = await _db.CloudResources.FirstOrDefaultAsync(p => p.Id == res[i].Id, cancellationToken: cancel);
-                    if (entity != null)
+                    var entityRes = await _db.CloudResources.FirstOrDefaultAsync(p => p.Id == res[i].Id, cancellationToken: cancel);
+                    if (entityRes != null)
                     {
-                        _db.Entry(entity).State = EntityState.Unchanged;
-                        res[i] = entity;
+                        _db.Entry(entityRes).State = EntityState.Unchanged;
+                        res[i] = entityRes;
                     }
                 }
                
             }
-            var e = _db.ChangeTracker.Entries();
-            foreach (var a in e)
-            {
-                Debug.WriteLine(a.Metadata.DisplayName() + a.State);
-            }
             await _db.Posts.AddAsync(item, cancel);
-             e = _db.ChangeTracker.Entries();
-            foreach (var a in e)
-            {
-                Debug.WriteLine(a.Metadata.DisplayName() + a.State);
-            }
 
             if (AutoSaveChanges)
             {
                 await SaveChanges(cancel).ConfigureAwait(false);
-                _db.Entry(item).Reload();
             }
-
-            return item;
+            var entity = await Items.FirstOrDefaultAsync(p => p.Id == item.Id).ConfigureAwait(false);
+            return entity;
         }
 
         public override async Task<Post> Update(Post item, CancellationToken cancel = default)

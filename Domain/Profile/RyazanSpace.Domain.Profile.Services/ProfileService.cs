@@ -1,4 +1,5 @@
-﻿using RyazanSpace.Core.Exceptions;
+﻿using RyazanSpace.Core.DTO;
+using RyazanSpace.Core.Exceptions;
 using RyazanSpace.DAL.Client.Repositories.Account;
 using RyazanSpace.DAL.Entities.Resources.Base;
 using RyazanSpace.Domain.Auth.API.Client;

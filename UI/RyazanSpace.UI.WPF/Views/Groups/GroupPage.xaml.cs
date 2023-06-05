@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RyazanSpace.UI.WPF.ViewModels.Groups;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,15 @@ namespace RyazanSpace.UI.WPF.Views.Groups
         public GroupPage()
         {
             InitializeComponent();
+        }
+
+        private void ListView_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (e.VerticalOffset == 0) return;
+            if (e.VerticalOffset + e.ViewportHeight > e.ExtentHeight - 200)
+            {
+                (this.DataContext as GroupViewModel).LoadNextPageCommand.Execute(null);
+            }
         }
     }
 }

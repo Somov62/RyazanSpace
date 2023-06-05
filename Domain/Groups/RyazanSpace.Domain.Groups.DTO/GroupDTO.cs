@@ -1,5 +1,6 @@
 ﻿using RyazanSpace.Core.DTO;
 using RyazanSpace.DAL.Entities.Groups;
+using RyazanSpace.DAL.Entities.Resources.Base;
 
 namespace RyazanSpace.Domain.Groups.DTO
 {
@@ -30,7 +31,7 @@ namespace RyazanSpace.Domain.Groups.DTO
                 Description = this.Description,
                 Name = this.Name,
                 RegDate = this.RegDate,
-                Logo = this.Logo.MapToEntity()
+                Logo = this.Logo?.MapToEntity() as CloudResource
             };
         }
 
@@ -39,7 +40,7 @@ namespace RyazanSpace.Domain.Groups.DTO
             entity.Name = this.Name;
             entity.Description = this.Description;
             entity.RegDate = this.RegDate;
-            this.Logo.UpdateEntity(entity.Logo);
+            this.Logo?.UpdateEntity(entity.Logo);
             return entity;
         }
 
@@ -48,8 +49,9 @@ namespace RyazanSpace.Domain.Groups.DTO
             Description = entity.Description;
             Name = entity.Name;
             RegDate = entity.RegDate;
-            Logo = new CloudResourceDTO(entity.Logo);
             Id = entity.Id;
+            if (entity.Logo != null)
+                Logo = new CloudResourceDTO(entity.Logo);
         }
     }
 }
