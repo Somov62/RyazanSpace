@@ -14,10 +14,10 @@ namespace RyazanSpace.DAL.API.Data
         {
             _db.Database.Migrate();
 
-            InitializeTestUsers();
-            InitializeTestGroups();
-
-            _db.SaveChanges();
+            //InitializeTestUsers();
+            //InitializeTestGroups();
+            //
+            //_db.SaveChanges();
         }
 
         private void InitializeTestUsers()
