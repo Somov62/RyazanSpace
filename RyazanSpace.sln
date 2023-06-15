@@ -87,9 +87,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Domain.Groups.A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServerCloud", "ServerCloud", "{878E3103-E113-4E53-9359-06804190FE82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RyazanSpace.Services.ServerCloud.API", "Services\ServerCloud\RyazanSpace.Services.ServerCloud.API\RyazanSpace.Services.ServerCloud.API.csproj", "{D4244C23-B268-435C-ADC7-57874290792B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Services.ServerCloud.API", "Services\ServerCloud\RyazanSpace.Services.ServerCloud.API\RyazanSpace.Services.ServerCloud.API.csproj", "{D4244C23-B268-435C-ADC7-57874290792B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RyazanSpace.Services.ServerCloud.API.Client", "Services\ServerCloud\RyazanSpace.Services.ServerCloud.API.Client\RyazanSpace.Services.ServerCloud.API.Client.csproj", "{EF047F46-095E-46EF-A2A3-D0B50F44E382}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RyazanSpace.Services.ServerCloud.API.Client", "Services\ServerCloud\RyazanSpace.Services.ServerCloud.API.Client\RyazanSpace.Services.ServerCloud.API.Client.csproj", "{EF047F46-095E-46EF-A2A3-D0B50F44E382}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshots", "Screenshots", "{6EF464E4-C2C9-4689-A6FD-B4185285CBBD}"
+	ProjectSection(SolutionItems) = preProject
+		Screenshots\diagram.jpg = Screenshots\diagram.jpg
+		Screenshots\RyazanSpace.UI.WPF_aNZBNpTIq7.png = Screenshots\RyazanSpace.UI.WPF_aNZBNpTIq7.png
+		Screenshots\RyazanSpace.UI.WPF_q5RldLOncS.png = Screenshots\RyazanSpace.UI.WPF_q5RldLOncS.png
+		Screenshots\RyazanSpace.UI.WPF_qyKExSVPx2.png = Screenshots\RyazanSpace.UI.WPF_qyKExSVPx2.png
+		Screenshots\RyazanSpace.UI.WPF_yeu0V7fQPo.png = Screenshots\RyazanSpace.UI.WPF_yeu0V7fQPo.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
